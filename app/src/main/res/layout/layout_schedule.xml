@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/main_title_bar" />
+    <com.example.myapplicatio.calendar.WeekBarView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/week_bar_height"
+        android:background="@color/calendar_bg_color"
+        app:week_text_size="@integer/calendar_text_size"/>
+
+    <com.example.myapplicatio.calendar.schedule.ScheduleLayout
+        android:id="@+id/slSchedule"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:auto_change_month_row="true"
+        app:default_view="month">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/rlMonthCalendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.example.myapplicatio.calendar.month.MonthCalendarView
+                        android:id="@+id/mcvCalendar"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/month_calendar_height"
+                        android:background="@color/calendar_bg_color"
+                        android:overScrollMode="never"
+                        app:month_day_text_size="@integer/calendar_text_size"
+                        app:month_holiday_color="@color/red"
+                        app:month_selected_circle_color="#FF9800"
+                        app:month_show_holiday_hint="true"
+                        app:month_show_lunar="true"
+                        app:month_show_task_hint="false"/>
+                </RelativeLayout>
+
+                <com.example.myapplicatio.calendar.week.WeekCalendarView
+                    android:id="@+id/wcvCalendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/week_calendar_height"
+                    android:background="@color/calendar_bg_color"
+                    android:overScrollMode="never"
+                    android:visibility="gone"
+                    app:week_day_text_size="@integer/calendar_text_size"
+                    app:week_holiday_color="@color/red"
+                    app:week_selected_circle_color="#FF9800"
+                    app:week_show_holiday_hint="true"
+                    app:week_show_lunar="true"
+                    app:week_show_task_hint="false"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlScheduleList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorBackground">
+
+                <com.example.myapplicatio.calendar.schedule.ScheduleRecyclerView
+                    android:id="@+id/rvScheduleList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:paddingTop="6dp" />
+
+                <RelativeLayout
+                    android:id="@+id/rlNoTask"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorBackground">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <include layout="@layout/main_input" />
+    </com.example.myapplicatio.calendar.schedule.ScheduleLayout>
+</LinearLayout>

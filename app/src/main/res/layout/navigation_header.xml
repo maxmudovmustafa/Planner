@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:orientation="vertical"
+        android:background="@drawable/abc_list_selector_background_transition_holo_light"
+        android:paddingTop="32dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.example.myapplicatio.util.MyImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center|left"
+                android:layout_margin="16dp"
+                android:gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_userpic"
+                app:my_radius="30" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <com.example.myapplicatio.util.MyImageView
+                android:id="@+id/miv_module_setting"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center|right"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/ic_edit"
+                app:my_icon_color="@color/light_silver" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="Warlocked"
+                android:visibility="gone"
+                android:textColor="@color/text_title"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/tv_user_filial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textColor="@color/text_detail"
+                android:textSize="12dp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_user_room_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:maxLines="2"
+                    android:text="Warlocked"
+                    android:textColor="@color/text_detail"
+                    android:textSize="18sp" />
+
+                <ToggleButton
+                    android:id="@+id/img_expand"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/ic_keyboard_arrow_down_black_24dp"
+                    android:textOff=""
+                    android:textOn=""/>
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/space_10dp"
+            android:layout_marginRight="@dimen/space_10dp"
+            android:background="@color/color_text_grey"/>
+        <LinearLayout
+            android:id="@+id/ll_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="User Name"
+                style="@style/MyEditText"/>
+
+            <EditText
+                android:id="@+id/et_user_passw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="numberPassword"
+                style="@style/MyEditText"/>
+
+            <EditText
+                android:id="@+id/et_user_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Detail"
+                style="@style/MyEditText"/>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

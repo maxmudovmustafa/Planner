@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AnorAppTheme" parent="GWS.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowContentTransitions">true</item>
+
+        <item name="buttonStyle">@style/MyButton</item>
+        <item name="editTextStyle">@style/DefaultEditText</item>
+        <item name="searchViewStyle">@style/GWS.SearchViewStyle</item>
+    </style>
+</resources>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/app_color</color>
+    <color name="colorPrimaryDark">@color/app_color_dark</color>
+    <color name="colorAccent">@color/app_color_accent</color>
+
+    <color name="app_color">@color/white</color>
+    <color name="app_color_dark">#d9d9d9</color>
+    <color name="app_color_accent">#5877F3</color>
+
+    <color name="app_color_1">#A2228D</color>
+    <color name="app_color_2">#525096</color>
+    <color name="app_color_3">#0095D9</color>
+    <color name="app_color_4">#8ED8F8</color>
+    <color name="app_color_5">#A7CE3A</color>
+    <color name="app_color_6">#D2E388</color>
+    <color name="app_color_7">#FFCA00</color>
+    <color name="app_color_8">#ED7822</color>
+    <color name="app_color_9">#51B0D3</color>
+    <color name="app_color_10">#0e8e7d</color>
+    <color name="app_color_10_light">#18b49f</color>
+
+    <color name="red">#ff0000</color>
+    <color name="red_light">#fd6969</color>
+    <color name="bround">#521C06</color>
+    <color name="orange">#EB880E</color>
+    <color name="green">#09a667</color>
+    <color name="green_light">#6ab697</color>
+
+    <color name="text_color_light">#595959</color>
+    <color name="text_color_dark">#262626</color>
+    <color name="error">@color/red</color>
+    <color name="light_extra_silver">#f4e6e6e6</color>
+    <color name="light_silver">#c2c2c2</color>
+    <color name="dark_silver">#545454</color>
+    <color name="normal_silver">#818181</color>
+    <color name="click_light_silver">#dfdfdf</color>
+
+    <color name="tab_normal">#8dffffff</color>
+    <color name="tab_select">#ffffff</color>
+
+    <color name="header">#F0F0F0</color>
+
+    <color name="background">#F1F5F8</color>
+    <color name="text_by_background">@color/text_detail</color>
+    <color name="text_detail">#9AA4A8</color>
+    <color name="text_title">#727679</color>
+    <color name="default_icon">#E4E5E7</color>
+    <color name="hint_icon">#dcdddf</color>
+
+    <color name="app_red">#E95758</color>
+
+    <color name="calendar_bg_color">#FFFFFF</color>
+    <color name="holiday_text_color">#9082BD</color>
+    <color name="select_circle_color">#FF8594</color>
+    <color name="colorBackground">#F0F1F5</color>
+
+    ------------------------------
+    <color name="colorWrite">#FFFFFF</color>
+    <color name="colorTranslate">#00FFFFFF</color>
+    <color name="colorRed">#FF0000</color>
+
+    <color name="color_schedule_purple">#9082BD</color>
+    <color name="color_schedule_orange">#f6af80</color>
+    <color name="color_schedule_pink">#E67986</color>
+    <color name="pink">#E67986</color>
+    <color name="lightPink">#EC324B</color>
+    <color name="color_schedule_yellow">#F7E373</color>
+    <color name="color_schedule_green">#84C5A3</color>
+    <color name="color_schedule_blue">#679BE4</color>
+    <color name="color_schedule_grey">#B9B9BD</color>
+    <color name="color_schedule_start">#3D81E2</color>
+    <color name="color_schedule_finish">#EC4A5F</color>
+    <color name="color_schedule_title_text">#272E3E</color>
+    <color name="color_schedule_finish_title_text">#7F838F</color>
+    <color name="color_schedule_line">#E3E1EE</color>
+
+    <color name="color_schedule_normal">#9E9DC9</color>
+    <color name="color_schedule_focus">#9082BD</color>
+
+    <color name="color_text_grey">#ADADB9</color>
+
+    <color name="color_menu_title_background">#353655</color>
+    <color name="color_menu_background">#454567</color>
+    <color name="color_menu_border">#2D2D51</color>
+    <color name="color_menu_text_color_normal">#A5A1C2</color>
+    <color name="color_menu_text_color_pre">#73728B</color>
+    <color name="color_menu_line">#303054</color>
+
+    <color name="color_circle_border">#706F7D</color>
+    <color name="color_add_event_set_border">#EEEEEE</color>
+    <color name="color_add_event_set_content">#F4F4F4</color>
+    <color name="color_add_event_text">#282D40</color>
+
+    <color name="color_cancel_normal">#B6B6B6</color>
+    <color name="color_cancel_pre">#9FB6B6B6</color>
+    <color name="color_confirm_normal">#8F81BC</color>
+    <color name="color_confirm_pre">#9F8F81BC</color>
+
+    <color name="color_show_finish_normal">#9E9DC9</color>
+    <color name="color_show_finish_pre">#B2B1D3</color>
+    <color name="color_finish_hint_text">#8D8BA0</color>
+
+    <color name="color_select_date_dialog_line">#B8B5D4</color>
+    <color name="color_select_date_dialog_edit_text_bg_normal">#C6C0DC</color>
+    <color name="color_select_date_dialog_edit_text_bg_focus">#A68BFF</color>
+    <color name="color_small_calendar_text">#7452E4</color>
+    <color name="color_dialog_shadow">#65000000</color>
+
+    <color name="color_schedule_text">#282D40</color>
+    <color name="color_schedule_text_pre">#ABABAD</color>
+    <color name="color_input_location_bg">#F4F4F4</color>
+    <color name="color_input_location_text_hint">#AAA8B3</color>
+    <color name="color_input_location_text">#272E3E</color>
+
+</resources>

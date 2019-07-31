@@ -1,0 +1,146 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
+    </style>
+    <style name="IntroTheme" parent="Theme.AppCompat.Light.NoActionBar" />
+
+    <style name="AnorAppTheme" parent="GWS.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
+
+        <item name="buttonStyle">@style/MyButton</item>
+        <item name="editTextStyle">@style/DefaultEditText</item>
+        <item name="searchViewStyle">@style/GWS.SearchViewStyle</item>
+    </style>
+
+    <style name="Dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="MyButton" parent="GWS.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="MySpinnerStyle">
+        <item name="android:background">@drawable/gradient_spinner</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:drawableRight">@drawable/ic_keyboard_arrow_down_black_24dp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:popupBackground">#ffffff</item>
+    </style>
+
+    <style name="MyEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:padding">8dp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="FAB_MENU">
+        <item name="android:background">@drawable/fab_lable_background</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="GWS.AccentButton" parent="GWS.Button">
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/button_accent_background</item>
+    </style>
+
+    <style name="GWS.PrimaryButton" parent="GWS.Button">
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:background">@drawable/button_primary_background</item>
+    </style>
+
+    <style name="GWS.RedButton2" parent="GWS.Button">
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/button_red_background</item>
+    </style>
+
+
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:actionBarSize">@dimen/action_bar_height</item>
+    </style>
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
+    </style>
+
+    <style name="DialogFullScreen" parent="DialogStyle"/>
+
+    <style name="DialogStyle" parent="Base.Theme.AppCompat.Light.Dialog">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:actionBarSize">@dimen/action_bar_height</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="TextAppearance.Small.CalendarViewWeekDayView" parent="@style/TextAppearance.AppCompat.Small">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CalendarView">
+        <!--<item name="showWeekNumber">true</item>-->
+        <item name="android:minDate">01/01/1900</item>
+        <item name="android:maxDate">12/31/2100</item>
+        <!--<item name="shownWeekCount">6</item>
+        <item name="selectedWeekBackgroundColor">#330099FF</item>
+        <item name="focusedMonthDateColor">#FFFFFFFF</item>
+        <item name="unfocusedMonthDateColor">#66FFFFFF</item>
+        <item name="weekNumberColor">#33FFFFFF</item>
+        <item name="weekSeparatorLineColor">#19FFFFFF</item>-->
+        <!--<item name="selectedDateVerticalBar">@drawable/day_picker_week_view_dayline_holo</item>-->
+        <item name="android:weekDayTextAppearance">@style/TextAppearance.Small.CalendarViewWeekDayView</item>
+        <item name="android:dateTextAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="dtp_calendarViewMode">holo</item>
+    </style>
+
+    <style name="NumberPicker">
+        <!--<item name="internalLayout">@layout/number_picker</item>-->
+        <item name="android:orientation">vertical</item>
+        <item name="android:fadingEdge">vertical</item>
+        <item name="android:fadingEdgeLength">50dip</item>
+    </style>
+
+    <style name="TimePicker">
+        <item name="android:timePickerMode" tools:targetApi="lollipop">spinner</item>
+        <!--<item name="legacyLayout">@layout/time_picker_legacy</item>-->
+    </style>
+</resources>

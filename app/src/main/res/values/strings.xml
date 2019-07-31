@@ -1,0 +1,197 @@
+<resources>
+    <string name="app_name">Planer_TO</string>
+    <string name="apk_name">Planer_TO</string>
+    <array name="device_info">
+        <item name = "Model:"></item>
+        <item name = "Board: "></item>
+        <item name = "Brand: "></item>
+        <item name = "Manufacturer: "></item>
+        <item name = "Device: "></item>
+        <item name = "Product: "></item>
+        <item name = "TAGS: "></item>
+        <item name = "Serial: "></item>
+    </array>
+    <string name="share">Share Voice File</string>
+    <array name="soc">
+        <item name = "Hardware:"></item>
+        <item name = "Number of cores: "></item>
+        <item name = "Architecture: "></item>
+    </array>
+
+    <array name="cpu">
+        <item name = "Cpu:"></item>
+    </array>
+
+
+    <array name="memory">
+        <item name = "Memory:"></item>
+    </array>
+
+    <array name="os">
+        <item name = "Build release:"></item>
+        <item name = "Incremental release: "></item>
+        <item name = "Base OS: "></item>
+        <item name = "CODE Name: "></item>
+        <item name = "Security patch: "></item>
+        <item name = "Preview SDK: "></item>
+        <item name = "SDK/API version: "></item>
+        <item name = "Display build: "></item>
+        <item name = "Finger print: "></item>
+        <item name = "FBuild ID: "></item>
+        <item name = "Build Time: "></item>
+        <item name = "Build Type: "></item>
+        <item name = "Build User: "></item>
+        <item name = "Bootlader: "></item>
+        <item name = "Kernel Version: "></item>
+    </array>
+
+    <array name="radio">
+        <item name = "Radio Version: "></item>
+    </array>
+
+
+    <array name="sensor">
+        <item name = "Sensor: "></item>
+    </array>
+
+
+
+    <string name="anor_error_1">A:1 Ошибка при сохранении справочника, \n повторите синхронизацию ещё раз или позже\n %1$s</string>
+    <string name="anor_error_2">A:2 Ошибка при сохранении справочника, \n повторите синхронизацию ещё раз или позже\n %1$s</string>
+
+    <string name="you_temporary_password_will_expire_day">Your temporary password is running out of time. It will expire after %1$s day(s)</string>
+    <string name="you_temporary_password_is_about_to_end">Your temporary password is running out of time</string>
+    <string name="send">Send</string>
+    <string name="cant_connect_to_server">Unable to connect to the server.\nError connecting</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="entry_is_locked">Cannot save. Data ready for shipment</string>
+    <string name="unauthenticated">Authorization required</string>
+    <string name="trash_is_empty">Trash is empty</string>
+    <string name="drafts_is_empty">Draft is empty</string>
+    <string name="list_is_empty">List is empty</string>
+    <string name="box_is_empty">Folder is empty</string>
+
+    <string name="setting">Settings</string>
+    <string name="date">Date</string>
+    <string name="update">Update</string>
+    <string name="intro_start">Get started</string>
+    <string name="select">Select</string>
+    <string name="filial_roles">Role(s) in branch (%1$s): %2$s\n\n</string>
+    <string name="session_filial">Branches</string>
+    <string name="session_sync_sending_date">Sending data</string>
+    <string name="session_sync_admission_information">Receiving data</string>
+    <string name="session_sync_error_information">Data error %1$s</string>
+    <string name="session_sync_sending_photo">Sending photos %1$s/%2$s</string>
+    <string name="session_sync_success_send">Successfully sent %1$s</string>
+    <string name="session_sync_error_sending">Error sending %1$s</string>
+    <string name="session_sync_download_photo">Download photos %1$s/%2$s</string>
+    <string name="session_sync_download_file">Downloading a file %1$s/%2$s</string>
+    <string name="session_sync_success_download">Successfully downloaded %1$s</string>
+    <string name="session_sync_error_download">Download error %1$s</string>
+    <string name="session_sync_data_success_send">Successfully sent data</string>
+    <string name="session_sync_data_processing">Data processing</string>
+    <string name="session_success_sync">Synchronization was successful!</string>
+    <string name="not_available">No data</string>
+    <string name="user_name_not_available">Username: no data found</string>
+    <string name="user_name">Username: %1$s</string>
+    <string name="user_details">User info</string>
+    <string name="roles_not_available">Filial roles: no data found</string>
+    <string name="retry">Repeat</string>
+
+    <string name="error_invalid_server_code_pattern">Invalid pattern of server code</string>
+    <string name="account_not_sync">To continue work, sync your account</string>
+    <string name="min_recom_char_6">The minimum recommended password length is 6 characters</string>
+    <string name="check_arab_number">The presence of Arabic numerals (0–9)</string>
+    <string name="upper_case_char">Capital letters of the Latin alphabet (A-Z)</string>
+    <string name="symbol_char">Non-alphanumeric characters  (for example,!, $, #,%)</string>
+    <string name="message_responsible">Responsible: </string>
+    <string name="message_participant">Performer: </string>
+    <string name="message_observer">Observer: </string>
+    <string name="task_create_error_persons">The user cannot be both a performer and a observer at the same time</string>
+    <string name="task_error_title">There is no title</string>
+    <string name="task_error_start_date">Missing beginning date for a task</string>
+    <string name="task_error_end_date">Error. The end date cannot be selected before the start date</string>
+    <string name="task_error_participant_not_selected">Performer is not selected</string>
+    <string name="task_error_incorrect_start_date">An incorrect start date of the task</string>
+    <string name="currency_not_found">The currency is not found, probably deleted</string>
+    <string name="yo_do_not_change_deal_state_when_ready">You cannot save a completed deal</string>
+    <string name="error_when_connect_database">Error connecting to the database</string>
+    <string name="sync_is_blocked_by_admin">Sync is blocked by admin</string>
+    <string name="error_io_file">Error when reading data</string>
+    <string name="yo_not_have_perrmission_change_status">You do not have permission to change your status</string>
+    <string name="task_is_already_closed">Task is already closed</string>
+    <string name="setting_language">Choose language</string>
+    <string name="select_you_comment">Leave comment</string>
+
+
+    <string-array name="calendar_week">
+        <item>Sun</item>
+        <item>Mon</item>
+        <item>Tues</item>
+        <item>Wed</item>
+        <item>Thur</item>
+        <item>Fri</item>
+        <item>Sat</item>
+    </string-array>
+
+
+    <string name="exit_app_hint">Click to exit.</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="finish">Finish</string>
+    <string name="finished">Finished</string>
+    <string name="start">Start</string>
+
+    <!--calendar-->
+    <string name="calendar_today">Today</string>
+    <string-array name="calendar_month">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+    <string name="calendar_day">%d day</string>
+    <string name="calendar_year">%d-</string>
+
+    <!--schedule-->
+    <string name="schedule_input_you_do_thing">Input what to do</string>
+    <string name="schedule_input_content_is_no_null">Content can\'t be empty.</string>
+    <string name="schedule_event_detail_setting">Detail setting</string>
+    <string name="schedule_title">Schedule title</string>
+    <string name="schedule_show_finish_task">Show completed</string>
+    <string name="schedule_hide_finish_task">Hide completed</string>
+    <string name="schedule_delete_this_schedule">Delete the schedule?</string>
+
+    <!--menu-->
+    <string name="menu_schedule">Schedule</string>
+    <string name="menu_event_set">Events</string>
+    <string name="menu_add_event_set">Add event list</string>
+    <string name="menu_no_category">Unclassified </string>
+
+    <!--event.set-->
+    <string name="event_set_list_name">List name</string>
+    <string name="event_set_color">Color</string>
+    <string name="event_set_name_is_not_null">List name can\'t be empty.</string>
+    <string name="event_set_select_color">Choose color</string>
+    <string name="event_set_delete_this_event_set">Delete events?</string>
+
+    <string name="hour">Hour</string>
+    <string name="remarks">Reminders</string>
+    <string name="please_input_desc">Input the reminders</string>
+    <string name="date_format">yyyy-MM-dd HH:mm</string>
+    <string name="date_format_no_time">%1$s-%2$s-%3$s</string>
+    <string name="click_here_select_date">Click to choose time</string>
+    <string name="click_here_select_location">Click to select location</string>
+    <string name="click_input_location">Click to input location</string>
+    <string name="add_location">Add spot</string>
+    <string name="select_event_set">Choose events</string>
+    <string name="record">Record</string>
+</resources>

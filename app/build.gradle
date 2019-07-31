@@ -1,0 +1,87 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+repositories {
+    jcenter()
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+
+    maven {
+        url "https://raw.github.com/embarkmobile/zxing-android-minimal/mvn-repo/maven-repository/"
+    }
+}
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
+    defaultConfig {
+        applicationId "com.example.myapplicatio"
+        minSdkVersion 16
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1." + versionCode
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+def retroefit_version = "2.5.0"
+
+dependencies {
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:28.0.0-alpha1'
+    implementation 'com.android.support:design:28.0.0-alpha1'
+    implementation 'com.android.support:cardview-v7:28.0.0-alpha1'
+    implementation 'com.android.support:support-dynamic-animation:28.0.0-alpha1'
+
+    // Google
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'
+
+    //for network
+    implementation "com.squareup.retrofit2:retrofit:$retroefit_version"
+    implementation "com.google.code.gson:gson:2.8.4"
+    implementation "com.squareup.retrofit2:converter-gson:$retroefit_version"
+
+
+    implementation 'com.google.firebase:firebase-database:16.1.0'
+    implementation 'com.google.firebase:firebase-auth:16.2.1'
+
+    implementation 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
+    implementation 'org.jsoup:jsoup:1.8.3'
+    // Room
+    implementation 'android.arch.persistence.room:runtime:1.1.1'
+    kapt 'android.arch.persistence.room:compiler:1.1.1'
+
+    // Lifecycle components & Dagger
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    kapt 'android.arch.lifecycle:compiler:1.1.1'
+    implementation 'com.google.dagger:dagger-android-support:2.20'
+    kapt 'com.google.dagger:dagger-android-processor:2.20'
+    kapt 'com.google.dagger:dagger-compiler:2.20'
+
+    implementation 'joda-time:joda-time:2.9.4'
+    implementation 'com.google.code.gson:gson:2.8.2'
+
+    // Zxing libraries
+    implementation 'com.embarkmobile:zxing-android-minimal:2.0.0@aar'
+    implementation 'com.embarkmobile:zxing-android-integration:2.0.0@aar'
+    implementation 'com.google.zxing:core:3.3.3'
+
+    implementation 'com.ilike:voicerecorder:1.0.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation(name: 'app-release', ext: 'aar')
+    implementation files('libs/flame.jar')
+}

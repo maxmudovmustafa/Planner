@@ -4,6 +4,7 @@
     android:layout_height="@dimen/bottom_bar_height"
     android:layout_alignParentBottom="true"
     android:layout_gravity="bottom"
+    android:visibility="gone"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="horizontal">

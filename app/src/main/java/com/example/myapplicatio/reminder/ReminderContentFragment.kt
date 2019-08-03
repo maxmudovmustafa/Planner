@@ -14,7 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.myapplicatio.R
 import com.example.myapplicatio.aralash.App
-import com.example.myapplicatio.aralash.UserViewFactory
+import com.example.myapplicatio.aralash.ReminderViewFactory
 import com.example.myapplicatio.db.ReminderEntity
 import com.example.myapplicatio.db.ReminderModelView
 import com.example.myapplicatio.time_picker.TimePickerDialog
@@ -33,11 +33,6 @@ import java.util.*
 
 
 class ReminderContentFragment : MoldContentFragment(), Click_Reminder {
-//        , TimePickerDialog.OnTimeSetListener {
-//    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-//        ToastUtils.showShortToast(context, "" + hourOfDay)
-//    }
-
     companion object {
         fun newInstance(): MoldContentFragment? {
             var s = Bundle()
@@ -65,14 +60,16 @@ class ReminderContentFragment : MoldContentFragment(), Click_Reminder {
         a.add(Tuple2("Repeat every month", 4))
         a.add(Tuple2("Custom", 5))
 
-        val factory2 = UserViewFactory(App.getApplicationContext(view.context))
-        viewModel = ViewModelProviders.of(this, factory2).get(ReminderModelView::class.java)
+        val factory = ReminderViewFactory(App.getApplicationContext(view.context))
+        viewModel = ViewModelProviders.of(this, factory).get(ReminderModelView::class.java)
         var string = StringBuilder()
-        viewModel?.getAllPeopleInfo()?.value?.forEach {
+        var value = viewModel!!.getAllReminder()
+        if (value != null) value.forEach {
             string.append(it.title)
             string.append(it.date)
             string.append(it.time)
         }
+        else ToastUtils.showShortToast(context, "ERRROROR")
         string.append("")
         ToastUtils.showShortToast(context, string.toString())
         player = voicePlayerView as VoicePlayerView
@@ -111,7 +108,7 @@ class ReminderContentFragment : MoldContentFragment(), Click_Reminder {
         }
 
         btn_save.setOnClickListener {
-            viewModel?.insert(ReminderEntity(
+            viewModel!!.insert(ReminderEntity(
                     et_title.text.toString(),
                     ed_date_start.text.toString(),
                     tv_time_start.text.toString(),

@@ -110,17 +110,18 @@
             android:id="@+id/ll_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:visibility="gone"
+            android:layout_margin="10dp"
+
             android:animateLayoutChanges="true"
             android:orientation="vertical">
 
-            <EditText
+            <TextView
                 android:id="@+id/et_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="User Name"
-                style="@style/MyEditText"/>
+                style="@style/GWS.EditText"/>
 
             <EditText
                 android:id="@+id/et_user_passw"
@@ -128,14 +129,14 @@
                 android:layout_height="wrap_content"
                 android:hint="Password"
                 android:inputType="numberPassword"
-                style="@style/MyEditText"/>
+                style="@style/GWS.EditText"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/et_user_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Detail"
-                style="@style/MyEditText"/>
+                style="@style/GWS.EditText"/>
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

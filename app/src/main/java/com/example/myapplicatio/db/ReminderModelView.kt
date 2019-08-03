@@ -6,6 +6,7 @@ import android.arch.lifecycle.LiveData
 
 class ReminderModelView : AndroidViewModel {
     private var mItems: LiveData<List<ReminderEntity>>? = null
+    private var mItem: List<ReminderEntity>? = null
     var mRepo: ReminderRepositor
 
     constructor(application: Application) : super(application) {
@@ -17,6 +18,13 @@ class ReminderModelView : AndroidViewModel {
             mItems = mRepo.getLiveUsers()
         }
         return mItems
+    }
+
+    fun getAllReminder(): List<ReminderEntity>? {
+        if (mItem == null) {
+            mItem = mRepo.getAllPeople()
+        }
+        return mItem
     }
 
     fun insert(id: ReminderEntity) {

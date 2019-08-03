@@ -27,7 +27,6 @@ class ReminderRepositor(var application: Application) {
     }
 
     fun insert(entity: ReminderEntity) {
-//        dao.insertUser(entity)
         insertAsync(dao).execute(entity)
     }
 
@@ -47,10 +46,9 @@ class ReminderRepositor(var application: Application) {
         }
 
 
-        class getPeopleAsync(private var dao: ReminderDao) : AsyncTask<Int, Any, ReminderEntity>() {
-            override fun doInBackground(vararg value: Int?): ReminderEntity? {
-                if (value[0] == null) return null
-                return dao.getUserInfo(value[0]!!)
+        class getPeopleAsync(private var dao: ReminderDao) : AsyncTask<Any, Any, List<ReminderEntity>>() {
+            override fun doInBackground(vararg value: Any?): List<ReminderEntity>? {
+                return dao.getUserInfo()
             }
         }
 

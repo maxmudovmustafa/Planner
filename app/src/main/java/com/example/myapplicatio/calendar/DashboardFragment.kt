@@ -5,6 +5,8 @@ import android.app.ProgressDialog
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
+import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.KeyEvent
@@ -14,6 +16,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.myapplicatio.R
 import com.example.myapplicatio.common.base.app.BaseFragment
+import com.example.myapplicatio.db.ReminderEntity
+import com.example.myapplicatio.firebase.FireFragment
+import com.example.myapplicatio.firebase.SecondFragment
 import com.example.myapplicatio.fragment.ScheduleFragment
 import com.example.myapplicatio.memos.MemoContentFragment
 import com.example.myapplicatio.util.ToastUtils
@@ -50,6 +55,30 @@ class DashboardFragment : MoldContentFragment(), View.OnClickListener {
         return inflater.inflate(R.layout.f_calendar, container, false)
     }
 
+    private fun addFragment(fragment: Fragment) {
+        childFragmentManager
+                .beginTransaction()
+                .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
+                .replace(R.id.content, fragment, fragment.javaClass.getSimpleName())
+                .commit()
+    }
+
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.nav_first_fragment -> {
+                val fragment = FireFragment()
+                addFragment(fragment)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.nav_second_fragment -> {
+                val fragment = SecondFragment()
+                addFragment(fragment)
+                return@OnNavigationItemSelectedListener true
+            }
+        }
+        false
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
@@ -61,6 +90,11 @@ class DashboardFragment : MoldContentFragment(), View.OnClickListener {
         fab2.setOnClickListener(this)
         fab3.setOnClickListener(this)
         fabSetting.setOnClickListener(this)
+
+//        val fragmentAdapter = MyPagerAdapter(childFragmentManager)
+//        viewpager_main.adapter = fragmentAdapter
+//
+//        tb_layout.setupWithViewPager(viewpager_main)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -123,7 +157,7 @@ class DashboardFragment : MoldContentFragment(), View.OnClickListener {
         tr.setTransition(FragmentTransaction.TRANSIT_NONE)
         var mScheduleFragment: BaseFragment? = null
         if (mScheduleFragment == null) {
-            mScheduleFragment = ScheduleFragment.getInstance()
+            mScheduleFragment = ScheduleFragment.instance
             tr.add(R.id.flMainContainer, mScheduleFragment)
         }
 
@@ -135,9 +169,9 @@ class DashboardFragment : MoldContentFragment(), View.OnClickListener {
     }
 
     fun addReminder() {
-        var adapter = RecyclerReminder(context!!, ArrayList<String>(), object : RecyclerReminder.ItemClickListener {
-            override fun onItemClick(position: String) {
-                Toast.makeText(context, position, Toast.LENGTH_SHORT).show()
+        var adapter = RecyclerReminder(context!!, ArrayList<ReminderEntity>(), object : RecyclerReminder.ItemClickListener {
+            override fun onItemClick(position: ReminderEntity) {
+                Toast.makeText(context, position.title, Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -145,7 +179,7 @@ class DashboardFragment : MoldContentFragment(), View.OnClickListener {
 
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                 if (!TextUtils.isEmpty(ed_reminder.text)) {
-                    adapter.addItem(ed_reminder.text.toString())
+//                    adapter.addItem(ed_reminder.text.toString())
                     ed_reminder.setText("")
                     return@OnKeyListener true
                 }
@@ -155,7 +189,7 @@ class DashboardFragment : MoldContentFragment(), View.OnClickListener {
 
         iv_reminder.setOnClickListener {
             if (!TextUtils.isEmpty(ed_reminder.text)) {
-                adapter.addItem(ed_reminder.text.toString())
+//                adapter.addItem(ed_reminder.text.toString())
                 ed_reminder.setText("")
             }
         }

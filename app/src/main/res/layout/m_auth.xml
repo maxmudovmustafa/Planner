@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/m_toolbar"
+        layout="@layout/m_toolbar" />
+
+    <FrameLayout
+        android:id="@+id/ll_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+
+        <EditText
+            android:id="@+id/tv_m_name"
+            style="@style/GWS.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="com.example@mail.ru" />
+
+        <EditText
+            android:id="@+id/tv_m_pass"
+            style="@style/GWS.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_m_enter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/button_accent_background"
+            android:gravity="center"
+            android:text="Enter"
+            android:textColor="@color/white" />
+
+
+        <Button
+            android:id="@+id/btn_m_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/button_red_background"
+            android:gravity="center"
+            android:text="Exit"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</LinearLayout>

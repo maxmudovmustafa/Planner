@@ -52,7 +52,7 @@ class RepeatFragment : MoldContentFragment() {
             listen?.onClickValue(1, "Don not repeat")
 
             var s = childFragmentManager.findFragmentByTag("ssss")
-                    childFragmentManager.beginTransaction().remove(s).commit()
+                    childFragmentManager.beginTransaction().remove(s!!).commit()
             childFragmentManager.popBackStack()
         }
         tv_repeat_every_day.setOnClickListener {

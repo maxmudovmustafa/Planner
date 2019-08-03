@@ -55,6 +55,18 @@ class Splash : Fragment() {
             } else {
                 openNavigation()
             }
+            /**
+             *
+             *
+             *
+             *
+             *  Ob tash ash keree
+             *
+             *
+             *
+             *
+             *
+             */
             if (false)
                 DialogBuilder().title("Choose")
                         .positive {

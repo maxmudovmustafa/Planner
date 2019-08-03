@@ -15,11 +15,12 @@ import android.provider.MediaStore
 import android.support.design.widget.NavigationView
 import android.support.v7.app.AlertDialog
 import android.text.TextUtils
-import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.transition.Slide
 import android.view.Gravity
 import android.view.View
 import android.view.animation.DecelerateInterpolator
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.ToggleButton
 import com.example.myapplicatio.R
@@ -32,8 +33,6 @@ import com.example.myapplicatio.memos.MemoContentFragment
 import com.example.myapplicatio.reminder.ReminderContentFragment
 import com.example.myapplicatio.util.ToastUtils
 import com.example.myapplicatio.utils.Tab
-import com.google.android.gms.common.api.internal.LifecycleCallback
-import com.google.android.gms.common.api.internal.LifecycleFragment
 import uz.greenwhite.lib.collection.MyArray
 import uz.greenwhite.lib.mold.Mold
 import uz.greenwhite.lib.mold.MoldContentFragment
@@ -45,27 +44,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 
 
-open class SessionIndexFragment : NavigationFragment(), LifecycleFragment {
-    override fun <T : LifecycleCallback?> getCallbackOrNull(p0: String?, p1: Class<T>?): T {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun addCallback(p0: String?, p1: LifecycleCallback) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun isCreated(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun isStarted(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getLifecycleActivity(): Activity {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
+open class SessionIndexFragment : NavigationFragment() {
     companion object {
         fun open(activity: Activity, dialog: ProgressDialog) {
             Mold.openNavigation(activity, SessionIndexFragment::class.java)
@@ -74,12 +53,13 @@ open class SessionIndexFragment : NavigationFragment(), LifecycleFragment {
         }
     }
 
-    private var allPeopleInfo: List<UserEntity>? = null
+    private var allPeopleInfo: UserEntity? = null
     private var picture: Boolean? = true
     private var navigationView: NavigationView? = null
     private var viewModel: UserModelView? = null
     private var vsHeader: ViewSetup? = null
-    private var vs: ViewSetup? = null
+    private var progress: ProgressDialog? = null
+
     private val FORMS = MyArray.from<NavigationItem>(
             NavigationItem(Tab().CALENDAR, "Calendar", R.drawable.ic_calendar),
             NavigationItem(Tab().REMENDIR, "Reminder", R.drawable.ic_reminder),
@@ -115,24 +95,25 @@ open class SessionIndexFragment : NavigationFragment(), LifecycleFragment {
     protected fun reloadNavigationHeader() {
         val factory = UserViewFactory(App.getApplicationContext(context!!))
         viewModel = ViewModelProviders.of(this, factory).get(UserModelView::class.java)
-        allPeopleInfo = viewModel!!.getAllPeopleInfo()
+        var allPeople = viewModel!!.getAllPeopleInfo()
         if (vsHeader == null) {
             vsHeader = ViewSetup(activity, R.layout.navigation_header)
             setNavigationHeader(vsHeader)
         }
-        if (allPeopleInfo != null) {
-            if (allPeopleInfo!![0].name == "") {
+        if (allPeople != null) {
+            allPeopleInfo = allPeople[0]
+            if (allPeopleInfo!!.name == "") {
                 vsHeader!!.textView(R.id.tv_user_room_name).text = "UnKnowsn"
             } else {
-                vsHeader!!.textView(R.id.tv_user_room_name).text = allPeopleInfo!![0].name
+                vsHeader!!.textView(R.id.tv_user_room_name).text = allPeopleInfo!!.name
             }
 
-            val image = allPeopleInfo!![0].getBitmap()
+            val image = allPeopleInfo!!.getBitmap()
             val ll_layout = vsHeader!!.id<LinearLayout>(R.id.ll_detail)
 
-            vsHeader!!.editText(R.id.et_user_name).setText(allPeopleInfo!![0].name)
-            vsHeader!!.editText(R.id.et_user_passw).setText(allPeopleInfo!![0].password)
-            vsHeader!!.editText(R.id.et_user_detail).setText(allPeopleInfo!![0].detail)
+            vsHeader!!.textView(R.id.et_user_name).text = allPeopleInfo!!.name
+            vsHeader!!.editText(R.id.et_user_passw).setText(allPeopleInfo!!.password)
+            vsHeader!!.textView(R.id.et_user_detail).text = allPeopleInfo!!.detail
 
             vsHeader!!.editText(R.id.et_user_passw).visibility = View.GONE
             if (image != null) {
@@ -140,7 +121,7 @@ open class SessionIndexFragment : NavigationFragment(), LifecycleFragment {
                 vsHeader!!.imageView(R.id.iv_avatar).setImageBitmap(bitmap)
             }
             vsHeader!!.imageView(R.id.miv_module_setting).setOnClickListener {
-                if (picture!!) makeImageChoose()
+                makeImageChoose()
             }
 
             val swicher = vsHeader!!.compoundButton<ToggleButton>(R.id.img_expand)
@@ -171,17 +152,32 @@ open class SessionIndexFragment : NavigationFragment(), LifecycleFragment {
         val factory = UserViewFactory(App.getApplicationContext(context!!))
         viewModel = ViewModelProviders.of(this, factory).get(UserModelView::class.java)
         viewModel?.getLiveUsers()?.observe(this, Observer {
-            allPeopleInfo = it
+            allPeopleInfo = it!![0]
             reloadNavigationHeader()
         })
 
         if (allPeopleInfo != null) {
 
-            val bitmap = BitmapFactory.decodeByteArray(allPeopleInfo!![0].image!!, 0, allPeopleInfo!![0].image!!.size)
-            vsHeader?.imageView(R.id.iv_avatar)?.setImageBitmap(bitmap)
+            val bitmap = BitmapFactory.decodeByteArray(allPeopleInfo!!.image!!, 0, allPeopleInfo!!.image!!.size)
+            vsHeader?.imageView(R.id.iv_avatar)?.setImageBitmap(compressBitmap(bitmap, 500))
             picture = true
         }
 
+    }
+
+    private fun compressBitmap(image: Bitmap, maxSize: Int): Bitmap {
+        var width = image.width
+        var height = image.height
+
+        var bitmapRatio = width as Float / height as Float
+        if (bitmapRatio > 1) {
+            width = maxSize
+            height = (width / bitmapRatio) as Int
+        } else {
+            height = maxSize
+            width = (height * bitmapRatio) as Int
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true)
     }
 
     override fun onStart() {
@@ -201,10 +197,6 @@ open class SessionIndexFragment : NavigationFragment(), LifecycleFragment {
         setItems(FORMS)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        addMenu("Search", ViewSetup(context, R.layout.abc_search_dropdown_item_icons_2line).view)
-    }
 
     fun make(id: Int?): MoldContentFragment? {
         when (id) {
@@ -225,29 +217,32 @@ open class SessionIndexFragment : NavigationFragment(), LifecycleFragment {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data != null) {
+            progress = ProgressDialog.show(context, "Updating", "Please wait")
             if (requestCode == 1) {
                 var uri = data.data
                 try {
                     var bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, uri)
                     val bytes = ByteArrayOutputStream()
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
                     val sha = saveImage(bitmap)
                     vsHeader!!.imageView(R.id.iv_avatar).setImageBitmap(bitmap)
-                    allPeopleInfo!![0].image = sha
+                    allPeopleInfo!!.image = sha
                 } catch (ex: Exception) {
 
                 }
             } else {
                 val thumbnail = data.extras.get("data") as Bitmap
                 val bytes = ByteArrayOutputStream()
-                thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
+                thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
                 val sha = saveImage(thumbnail)
                 vsHeader!!.imageView(R.id.iv_avatar).setImageBitmap(thumbnail)
-                allPeopleInfo!![0].image = sha
+                allPeopleInfo!!.image = sha
             }
 
-            viewModel?.updateBitmap(allPeopleInfo!![0])
+            viewModel?.updateBitmap(allPeopleInfo!!)
+            makeImageChoose()
             ToastUtils.showShortToast(context, "Updateed ficture")
+            progress!!.dismiss()
         }
     }
 
@@ -255,7 +250,7 @@ open class SessionIndexFragment : NavigationFragment(), LifecycleFragment {
         val bytes = ByteArrayOutputStream()
         val wallpaperDirectory = File((Environment.getExternalStorageDirectory()).toString(),
                 "my_app")
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
         if (!wallpaperDirectory.exists()) {
             wallpaperDirectory.mkdir()
         }
@@ -271,19 +266,23 @@ open class SessionIndexFragment : NavigationFragment(), LifecycleFragment {
     }
 
     fun makeImageChoose() {
+        var vs = ViewSetup(layoutInflater.inflate(R.layout.dialog_registration, null, false))
         var dialog = AlertDialog.Builder(context!!)
         var builder = Dialog(activity)
-        vs = ViewSetup(layoutInflater.inflate(R.layout.dialog_registration, null, false))
-        if (!TextUtils.isEmpty(allPeopleInfo!![0].detail))
-            vs!!.editText(R.id.ed_user_detail).setText(allPeopleInfo!![0].detail)
-        vs!!.editText(R.id.ed_user_name).setText(allPeopleInfo!![0].name)
-        if (!TextUtils.isEmpty(allPeopleInfo!![0].password))
-            vs?.editText(R.id.ed_user_passw)?.setText(allPeopleInfo!![0].password)
-        if (allPeopleInfo!![0].image != null) {
-            val bitmap = BitmapFactory.decodeByteArray(allPeopleInfo!![0].image, 0, allPeopleInfo!![0].image!!.size)
-            vs!!.imageView(R.id.iv_avatar).setImageBitmap(bitmap)
+        val uName = vs.editText(R.id.ed_user_name)
+        val uPassw = vs.editText(R.id.ed_user_passw)
+        val uDetail = vs.editText(R.id.ed_user_detail)
+
+        if (!isEmpty(allPeopleInfo!!.detail))
+            uDetail.setText(allPeopleInfo!!.detail)
+        uName.setText(allPeopleInfo!!.name)
+        if (!isEmpty(allPeopleInfo!!.password))
+            uPassw.setText(allPeopleInfo!!.password)
+        if (allPeopleInfo!!.image != null) {
+            val bitmap = BitmapFactory.decodeByteArray(allPeopleInfo!!.image, 0, allPeopleInfo!!.image!!.size)
+            vs.imageView(R.id.iv_avatar).setImageBitmap(bitmap)
         }
-        vs!!.imageView(R.id.iv_avatar).setOnClickListener {
+        vs.imageView(R.id.iv_avatar).setOnClickListener {
             var items: Array<String> = Array(5) { "" }
             items[0] = "Gallery"
             items[1] = "Camera"
@@ -291,8 +290,8 @@ open class SessionIndexFragment : NavigationFragment(), LifecycleFragment {
                 setTitle("Choose")
                 setItems(items) { _, which ->
                     when (which) {
-                        0 -> chooseGallery()
-                        1 -> fromGalley()
+                        0 -> openGallery()
+                        1 -> openCamera()
                     }
                 }
             }
@@ -300,56 +299,57 @@ open class SessionIndexFragment : NavigationFragment(), LifecycleFragment {
             dialog.show()
         }
 
-        vs!!.button(R.id.btn_registr).setOnClickListener {
-            val name = vs!!.editText(R.id.ed_user_name).text.toString()
-            val passw = vs!!.editText(R.id.ed_user_passw).text.toString()
-            val detail = vs!!.editText(R.id.ed_user_detail).text.toString()
-            /*          val image = vs.imageView(R.id.iv_avatar).drawable
-                      val bitmapDrawable = image as BitmapDrawable
-                      val bitmap = bitmapDrawable.bitmap
-                      var stream = ByteArrayOutputStream()
-                      bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-                      var s = stream.toByteArray()
-          */
-            val userEntity = UserEntity(name, passw, detail)
-
-            vs!!.compoundButton<ToggleButton>(R.id.tb_see_password).setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked)
-                    vs!!.editText(R.id.ed_user_passw).transformationMethod = HideReturnsTransformationMethod.getInstance()
-                else
-                    vs!!.editText(R.id.ed_user_passw).transformationMethod = HideReturnsTransformationMethod.getInstance()
-            }
-
-            vs!!.button(R.id.btn_cancel).setOnClickListener {
-                builder.dismiss()
-            }
-
-            if (passw.isEmpty() || passw.length == 4) {
-                if (!TextUtils.isEmpty(userEntity.password)) {
-                    userEntity.statePassword = true
-                }
-                builder.dismiss()
-            } else {
-                UI.alert(activity, "#numeric value", "Password should be 4 digit number")
-            }
-            userEntity.setBitmap(allPeopleInfo!![0].image!!)
-            viewModel!!.updatePeople(userEntity, allPeopleInfo!![0].id)
-            reloadIndexFragment()
+        vs.compoundButton<ToggleButton>(R.id.tb_see_password).setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked)
+                uPassw.transformationMethod = null
+            else
+                uPassw.transformationMethod = PasswordTransformationMethod()
         }
 
-        builder.setContentView(vs!!.view)
+        vs.button(R.id.btn_cancel).setOnClickListener {
+            builder.dismiss()
+        }
+
+        vs.button(R.id.btn_registr).setOnClickListener {
+            if (!isEmpty(toString(uName))) {
+                allPeopleInfo!!.name = toString(uName)
+                allPeopleInfo!!.detail = toString(uDetail)
+                allPeopleInfo!!.password = toString(uPassw)
+                if (isEmpty(uPassw.toString()) || uPassw.toString().length == 4) {
+                    allPeopleInfo!!.statePassword = true
+                    viewModel!!.update(allPeopleInfo!!)
+                    builder.dismiss()
+                    reloadNavigationHeader()
+                } else {
+                    UI.alert(activity, "#numeric value", "Password should be 4 digit number")
+                }
+            } else {
+                uName.error = "Filed is empty"
+                uName.requestFocus()
+            }
+        }
+
+        builder.setContentView(vs.view)
         builder.show()
     }
 
 
-    fun chooseGallery() {
+    fun toString(value: EditText): String {
+        return value.text.toString()
+    }
+
+    fun isEmpty(value: String): Boolean {
+        return TextUtils.isEmpty(value)
+    }
+
+    fun openGallery() {
         var intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(Intent.createChooser(intent, "select"), 1)
     }
 
-    fun fromGalley() {
+    fun openCamera() {
         var intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, 0)
     }

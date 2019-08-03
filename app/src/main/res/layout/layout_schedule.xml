@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <include layout="@layout/main_title_bar" />
+
     <com.example.myapplicatio.calendar.WeekBarView
         android:layout_width="match_parent"
         android:layout_height="@dimen/week_bar_height"
         android:background="@color/calendar_bg_color"
-        app:week_text_size="@integer/calendar_text_size"/>
+        app:week_text_size="@integer/calendar_text_size" />
 
     <com.example.myapplicatio.calendar.schedule.ScheduleLayout
         android:id="@+id/slSchedule"
@@ -44,7 +45,7 @@
                         app:month_selected_circle_color="#FF9800"
                         app:month_show_holiday_hint="true"
                         app:month_show_lunar="true"
-                        app:month_show_task_hint="false"/>
+                        app:month_show_task_hint="false" />
                 </RelativeLayout>
 
                 <com.example.myapplicatio.calendar.week.WeekCalendarView
@@ -59,7 +60,7 @@
                     app:week_selected_circle_color="#FF9800"
                     app:week_show_holiday_hint="true"
                     app:week_show_lunar="true"
-                    app:week_show_task_hint="false"/>
+                    app:week_show_task_hint="false" />
 
             </RelativeLayout>
 
@@ -76,24 +77,28 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginTop="0dp"
                     android:orientation="vertical"
-                    android:overScrollMode="never"
                     android:paddingTop="6dp" />
 
                 <RelativeLayout
                     android:id="@+id/rlNoTask"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/colorBackground">
+                    android:background="@color/white">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/list"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3dp"
+                        android:background="@color/white"
+                        android:visibility="gone"/>
 
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_list"
+                        android:background="@color/light_extra_silver"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
                 </RelativeLayout>
 
             </RelativeLayout>

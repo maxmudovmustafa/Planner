@@ -3,11 +3,12 @@ package com.example.myapplicatio.memos
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
-import android.app.Dialog
 import android.app.ProgressDialog
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.location.Location
 import android.net.Uri
@@ -18,6 +19,7 @@ import android.provider.MediaStore
 import android.provider.Settings
 import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.text.format.DateFormat
 import android.util.Log
 import android.view.LayoutInflater
@@ -26,11 +28,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.myapplicatio.BuildConfig
 import com.example.myapplicatio.R
+import com.example.myapplicatio.aralash.App
+import com.example.myapplicatio.db.memo.MemoEntity
+import com.example.myapplicatio.db.memo.MemoFactory
+import com.example.myapplicatio.db.memo.MemoModelView
 import com.example.myapplicatio.time_picker.TimePickerDialog
-import com.example.myapplicatio.util.CalendarUtil
-import com.example.myapplicatio.util.ImagesList
-import com.example.myapplicatio.util.ToastUtils
-import com.example.myapplicatio.util.ViewUtil
+import com.example.myapplicatio.util.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.f_note.*
@@ -43,7 +46,6 @@ import uz.greenwhite.lib.mold.Mold
 import uz.greenwhite.lib.mold.MoldContentFragment
 import uz.greenwhite.lib.view_setup.PopupBuilder
 import uz.greenwhite.lib.view_setup.UI
-import uz.greenwhite.lib.view_setup.ViewSetup
 import java.io.ByteArrayOutputStream
 import java.io.File
 
@@ -172,11 +174,33 @@ class MemoContentFragment : MoldContentFragment() {
 
             }).show(childFragmentManager, "color")
         }
+        val factory2 = MemoFactory(App.getApplicationContext(context!!))
+        var viewModel2 = ViewModelProviders.of(this, factory2).get(MemoModelView::class.java)
         btn_save.setOnClickListener {
             ToastUtils.showShortToast(context, "DOne")
+            if (!TextUtils.isEmpty(StringUtils.String(et_title))) {
+
+                var bitmap = (ll_image_color.background as BitmapDrawable).getBitmap()
+                var stream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+                var bitmapdata = stream.toByteArray()
+
+                viewModel2.mRepo.insert(MemoEntity(StringUtils.String(et_title),
+                        StringUtils.String(tv_date_start),
+                        StringUtils.String(tv_time_start),
+                        StringUtils.String(et_date_end),
+                        StringUtils.String(tv_time_end),
+                        true,
+                        4,
+                        456,
+                        "people",
+                        StringUtils.String(note),
+                        adapter!!.getItems(),
+                        bitmapdata))
+            }
         }
 
-        rv_images.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
+        rv_images.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun openGallery() {

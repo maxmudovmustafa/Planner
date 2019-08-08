@@ -1,4 +1,4 @@
-package com.example.myapplicatio.db
+package com.example.myapplicatio.db.reminder
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel

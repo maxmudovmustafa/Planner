@@ -1,4 +1,4 @@
-package com.example.myapplicatio.db
+package com.example.myapplicatio.db.task
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel

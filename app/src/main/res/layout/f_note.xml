@@ -348,6 +348,7 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/note"
                         style="@style/GWS.EditText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

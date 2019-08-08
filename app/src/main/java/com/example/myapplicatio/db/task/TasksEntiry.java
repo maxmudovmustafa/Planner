@@ -1,4 +1,4 @@
-package com.example.myapplicatio.db;
+package com.example.myapplicatio.db.task;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;

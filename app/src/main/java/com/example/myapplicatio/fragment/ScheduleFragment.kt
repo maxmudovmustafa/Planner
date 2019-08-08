@@ -1,7 +1,6 @@
 package com.example.myapplicatio.fragment
 
 import android.arch.lifecycle.ViewModelProviders
-import android.graphics.Color
 import android.os.AsyncTask
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
@@ -18,7 +17,6 @@ import com.example.myapplicatio.R
 import com.example.myapplicatio.adapter.ScheduleAdapter
 import com.example.myapplicatio.aralash.App
 import com.example.myapplicatio.aralash.ReminderViewFactory
-import com.example.myapplicatio.aralash.SwipeHelper
 import com.example.myapplicatio.aralash.SwipeToDeleteCallback
 import com.example.myapplicatio.calendar.OnCalendarClickListener
 import com.example.myapplicatio.calendar.RecyclerReminder
@@ -28,14 +26,13 @@ import com.example.myapplicatio.common.base.app.BaseFragment
 import com.example.myapplicatio.common.bean.Schedule
 import com.example.myapplicatio.common.listener.OnTaskFinishedListener
 import com.example.myapplicatio.common.util.DeviceUtils
-import com.example.myapplicatio.db.ReminderEntity
-import com.example.myapplicatio.db.ReminderModelView
+import com.example.myapplicatio.db.reminder.ReminderEntity
+import com.example.myapplicatio.db.reminder.ReminderModelView
 import com.example.myapplicatio.dialog.SelectDateDialog
 import com.example.myapplicatio.task.schedule.AddScheduleTask
 import com.example.myapplicatio.task.schedule.LoadScheduleTask
 import com.example.myapplicatio.util.CalendarUtil
 import com.example.myapplicatio.util.ToastUtils
-import kotlinx.android.synthetic.main.layout_schedule.*
 import java.util.*
 
 

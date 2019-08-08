@@ -10,8 +10,8 @@ import android.text.TextUtils
 import com.example.myapplicatio.R
 import com.example.myapplicatio.dashboard.SessionIndexFragment
 import com.example.myapplicatio.db.Data
-import com.example.myapplicatio.db.UserEntity
-import com.example.myapplicatio.db.UserModelView
+import com.example.myapplicatio.db.user.UserEntity
+import com.example.myapplicatio.db.user.UserModelView
 import kotlinx.android.synthetic.main.into_activity.*
 import uz.greenwhite.lib.mold.Mold
 import uz.greenwhite.lib.view_setup.DialogBuilder

@@ -12,7 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.ToggleButton
 import com.example.myapplicatio.R
-import com.example.myapplicatio.db.ReminderEntity
+import com.example.myapplicatio.db.reminder.ReminderEntity
 
 class RecyclerReminder(var context: Context,
                        private var mData: ArrayList<ReminderEntity>,

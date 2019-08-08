@@ -1,10 +1,8 @@
-package com.example.myapplicatio.db;
+package com.example.myapplicatio.db.task;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
 import android.os.AsyncTask;
-import android.view.View;
 
 import java.util.List;
 

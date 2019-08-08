@@ -27,8 +27,8 @@ import com.example.myapplicatio.R
 import com.example.myapplicatio.aralash.App
 import com.example.myapplicatio.aralash.UserViewFactory
 import com.example.myapplicatio.calendar.DashboardFragment
-import com.example.myapplicatio.db.UserEntity
-import com.example.myapplicatio.db.UserModelView
+import com.example.myapplicatio.db.user.UserEntity
+import com.example.myapplicatio.db.user.UserModelView
 import com.example.myapplicatio.memos.MemoContentFragment
 import com.example.myapplicatio.reminder.ReminderContentFragment
 import com.example.myapplicatio.util.ToastUtils

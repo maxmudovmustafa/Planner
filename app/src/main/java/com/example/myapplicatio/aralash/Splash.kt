@@ -22,8 +22,8 @@ import android.widget.ToggleButton
 import com.example.myapplicatio.R
 import com.example.myapplicatio.dashboard.SessionIndexFragment
 import com.example.myapplicatio.db.Data
-import com.example.myapplicatio.db.UserEntity
-import com.example.myapplicatio.db.UserModelView
+import com.example.myapplicatio.db.user.UserEntity
+import com.example.myapplicatio.db.user.UserModelView
 import kotlinx.android.synthetic.main.splash_screen.*
 import uz.greenwhite.lib.view_setup.DialogBuilder
 import uz.greenwhite.lib.view_setup.ViewSetup

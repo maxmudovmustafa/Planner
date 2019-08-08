@@ -16,7 +16,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.myapplicatio.R
 import com.example.myapplicatio.common.base.app.BaseFragment
-import com.example.myapplicatio.db.ReminderEntity
+import com.example.myapplicatio.db.reminder.ReminderEntity
 import com.example.myapplicatio.firebase.FireFragment
 import com.example.myapplicatio.firebase.SecondFragment
 import com.example.myapplicatio.fragment.ScheduleFragment
@@ -29,6 +29,9 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.main_container.*
 import uz.greenwhite.lib.mold.Mold
 import uz.greenwhite.lib.mold.MoldContentFragment
+import uz.greenwhite.lib.mold.behavior.BottomNavigationBehavior
+import uz.greenwhite.lib.view_setup.UI
+import uz.greenwhite.lib.view_setup.ViewSetup
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -90,7 +93,10 @@ class DashboardFragment : MoldContentFragment(), View.OnClickListener {
         fab2.setOnClickListener(this)
         fab3.setOnClickListener(this)
         fabSetting.setOnClickListener(this)
-
+        var vs = ViewSetup(context, R.layout.gwslib_bottom_sheet_dialog_row)
+        vs.imageView(R.id.iv_icon).setImageDrawable(resources.getDrawable(R.drawable.ic_note))
+        vs.textView(R.id.tv_text).text = "my dialog"
+        UI.bottomSheet().contentView(vs.view)
 //        val fragmentAdapter = MyPagerAdapter(childFragmentManager)
 //        viewpager_main.adapter = fragmentAdapter
 //

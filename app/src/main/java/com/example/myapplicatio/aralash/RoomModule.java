@@ -6,8 +6,8 @@ package com.example.myapplicatio.aralash;//package com.example.myapplicatio;
 //import android.support.v4.content.PermissionChecker;
 //
 //import com.example.myapplicatio.db.Data;
-//import com.example.myapplicatio.db.TaskRepositor;
-//import com.example.myapplicatio.db.TasksDao;
+//import com.example.myapplicatio.db.task.TaskRepositor;
+//import com.example.myapplicatio.db.task.TasksDao;
 //
 //import javax.inject.Singleton;
 //

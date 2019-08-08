@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.example.myapplicatio.R
 import uz.greenwhite.lib.Tuple2
+import java.io.ByteArrayOutputStream
 
 class ImagesList(var context: Context,
                  private var mData: ArrayList<Tuple2>,
@@ -24,6 +25,18 @@ class ImagesList(var context: Context,
         notifyDataSetChanged()
     }
 
+    fun getItems(): ArrayList<ByteArray>{
+        var result = ArrayList<ByteArray>()
+        mData.forEach {
+//            Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
+            var stream = ByteArrayOutputStream()
+            (it.first as Bitmap).compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            var bitmapdata = stream.toByteArray()
+            result.add(bitmapdata)
+
+        }
+        return result
+    }
     fun removeItem(position: Int) {
         mData.removeAt(position)
         notifyDataSetChanged()

@@ -1,9 +1,8 @@
-package com.example.myapplicatio.db
+package com.example.myapplicatio.db.user
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
-import android.graphics.Bitmap
 
 class UserModelView : AndroidViewModel {
     private var mItems: List<UserEntity> ? =null

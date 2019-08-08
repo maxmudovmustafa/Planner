@@ -1,4 +1,4 @@
-package com.example.myapplicatio.db
+package com.example.myapplicatio.db.reminder
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*

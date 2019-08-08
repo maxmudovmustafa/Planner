@@ -67,7 +67,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retroefit_version"
     implementation "com.google.code.gson:gson:2.8.4"
     implementation "com.squareup.retrofit2:converter-gson:$retroefit_version"
-
+    implementation "com.squareup.retrofit2:adapter-rxjava:$retroefit_version"
 
     implementation 'com.google.firebase:firebase-database:16.1.0'
     implementation 'com.google.firebase:firebase-auth:16.2.1'

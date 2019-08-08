@@ -1,4 +1,4 @@
-package com.example.myapplicatio.db
+package com.example.myapplicatio.db.user
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*

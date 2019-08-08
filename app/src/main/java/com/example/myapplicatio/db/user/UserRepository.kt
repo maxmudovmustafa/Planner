@@ -1,8 +1,9 @@
-package com.example.myapplicatio.db
+package com.example.myapplicatio.db.user
 
 import android.app.Application
 import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
+import com.example.myapplicatio.db.Data
 
 class UserRepository(application: Application) {
     private val db by lazy {
@@ -41,7 +42,7 @@ class UserRepository(application: Application) {
 
 
     fun updateBitmap(entity: UserEntity) {
-        Companion.updateBitmap(dao).execute(entity)
+        updateBitmap(dao).execute(entity)
     }
 
     fun delete(task: UserEntity) {

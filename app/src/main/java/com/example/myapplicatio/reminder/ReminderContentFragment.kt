@@ -15,8 +15,8 @@ import android.view.ViewGroup
 import com.example.myapplicatio.R
 import com.example.myapplicatio.aralash.App
 import com.example.myapplicatio.aralash.ReminderViewFactory
-import com.example.myapplicatio.db.ReminderEntity
-import com.example.myapplicatio.db.ReminderModelView
+import com.example.myapplicatio.db.reminder.ReminderEntity
+import com.example.myapplicatio.db.reminder.ReminderModelView
 import com.example.myapplicatio.time_picker.TimePickerDialog
 import com.example.myapplicatio.util.ToastUtils
 import com.example.myapplicatio.util.VoicePlayerView

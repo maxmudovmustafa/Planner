@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -11,7 +12,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:visibility="invisible"
+        android:orientation="vertical">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?actionBarSize"
+        app:tabBackground="@color/blue"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorHeight="4dp"
+        app:tabMode="fixed"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,7 +82,7 @@
                     android:id="@+id/fab1_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:backgroundTint="#85D1FC"
+                    app:backgroundTint="@color/colorAccent"
                     app:elevation="0dp"
                     app:fabSize="mini"
                     app:srcCompat="@drawable/ic_note"
@@ -103,7 +125,7 @@
                     android:id="@+id/fab2_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:backgroundTint="#85D1FC"
+                    app:backgroundTint="@color/colorAccent"
                     app:elevation="0dp"
                     app:fabSize="mini"
                     app:srcCompat="@drawable/ic_reminder"
@@ -145,7 +167,7 @@
                     android:id="@+id/fab3_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:backgroundTint="#85D1FC"
+                    app:backgroundTint="@color/colorAccent"
                     app:elevation="0dp"
                     app:fabSize="mini"
                     app:srcCompat="@drawable/ic_call"
@@ -169,7 +191,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end"
-                    app:backgroundTint="#63ACFF"
+                    app:backgroundTint="@color/colorAccent"
                     app:elevation="0dp"
                     app:fabSize="normal"
                     app:srcCompat="@drawable/ic_multiply"
@@ -210,47 +232,21 @@
             <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rc_reminder"
                     android:layout_width="match_parent"
                     android:layout_height="300dp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rc_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp" />
+</LinearLayout>
             </android.support.v4.widget.NestedScrollView>
         </LinearLayout>
     </LinearLayout>
-
-    <!--<FrameLayout-->
-        <!--android:id="@+id/content"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"/>-->
-
-    <!--<android.support.design.widget.BottomNavigationView-->
-        <!--android:id="@+id/navigation"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:layout_gravity="bottom"-->
-        <!--android:background="?android:attr/windowBackground"-->
-        <!--app:menu="@menu/drawer" />-->
-
-    <!--
-
-<android.support.v4.view.ViewPager
-    android:id="@+id/viewpager_main"
-    android:layout_width="match_parent"
-    android:layout_gravity="bottom"
-    android:layout_height="wrap_content" />-->
-<android.support.design.widget.TabLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom"
-    android:background="@color/green_light"
-
-    app:tabGravity="center">
-
-    <android.support.design.widget.TabItem
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-</android.support.design.widget.TabLayout>
 </android.support.design.widget.CoordinatorLayout>

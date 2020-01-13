@@ -3,9 +3,10 @@ package com.example.myapplicatio.db.memo
 import android.app.Application
 import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
+import android.util.Log
 import com.example.myapplicatio.db.Data
 
-class MemoRepository(application: Application) {
+class MemoRepository(var application: Application) {
     private val db by lazy {
         Data.getDatabase(application)
     }
@@ -16,11 +17,11 @@ class MemoRepository(application: Application) {
 
     init {
         mLiveUser = dao.getLiveNote()
-        mAllUsers = mLiveUser.value
+        mAllUsers = dao.listNote()
     }
 
-    fun getAllMemo(): List<MemoEntity> {
-        return mAllUsers!!
+    fun getAllMemo(): List<MemoEntity>? {
+        return mAllUsers
     }
 
     fun getLiveMemo(): LiveData<List<MemoEntity>> {
@@ -28,6 +29,9 @@ class MemoRepository(application: Application) {
     }
 
     fun insert(entity: MemoEntity) {
+
+            val addedID =db.memoDao().insertNote(entity)
+        Log.d("DDDDDD", "$addedID+456")
         insertAsync(dao).execute(entity)
     }
 

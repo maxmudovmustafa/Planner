@@ -52,6 +52,7 @@ android {
 def retroefit_version = "2.5.0"
 
 dependencies {
+    implementation 'com.facebook.stetho:stetho:1.5.1'
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:28.0.0-alpha1'
     implementation 'com.android.support:design:28.0.0-alpha1'
@@ -62,7 +63,7 @@ dependencies {
     // Google
     implementation 'com.google.android.gms:play-services-location:16.0.0'
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
-
+    implementation 'com.karumi:dexter:5.0.0'
     //for network
     implementation "com.squareup.retrofit2:retrofit:$retroefit_version"
     implementation "com.google.code.gson:gson:2.8.4"

@@ -57,6 +57,7 @@
 
     ------------------------------
     <color name="colorWrite">#FFFFFF</color>
+    <color name="deem">#F7EDED</color>
     <color name="colorTranslate">#00FFFFFF</color>
     <color name="colorRed">#FF0000</color>
 

@@ -24,6 +24,8 @@ import com.example.myapplicatio.dashboard.SessionIndexFragment
 import com.example.myapplicatio.db.Data
 import com.example.myapplicatio.db.user.UserEntity
 import com.example.myapplicatio.db.user.UserModelView
+import com.example.myapplicatio.db.user.UserViewFactory
+import com.example.myapplicatio.z_detail.ECommers
 import kotlinx.android.synthetic.main.splash_screen.*
 import uz.greenwhite.lib.view_setup.DialogBuilder
 import uz.greenwhite.lib.view_setup.ViewSetup
@@ -37,7 +39,7 @@ class Splash : Fragment() {
     fun gotoActivity() {
         if (Build.VERSION.SDK_INT > 20) {
             var option = ActivityOptions.makeSceneTransitionAnimation(activity)
-            var intent = Intent(context, MainActivity::class.java)
+            var intent = Intent(context, ECommers::class.java)
             startActivity(intent, option.toBundle())
             activity!!.finish()
         }

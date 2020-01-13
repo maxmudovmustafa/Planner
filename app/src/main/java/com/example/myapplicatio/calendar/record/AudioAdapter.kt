@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.example.myapplicatio.aralash.MyTextSample
+import com.example.myapplicatio.z_detail.MyTextSample
 import com.example.myapplicatio.R
 import java.util.ArrayList
 

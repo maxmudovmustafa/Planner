@@ -14,7 +14,7 @@ interface MemoDao {
     @Query("SELECT * FROM memo_info where id = :taskId")
     fun getNote(taskId: Int): MemoEntity
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertNote(task: MemoEntity)
 
     @Delete

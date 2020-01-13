@@ -4,8 +4,8 @@
     android:insetRight="@dimen/abc_button_inset_horizontal_material"
     android:insetBottom="@dimen/abc_button_inset_vertical_material">
     <shape android:shape="rectangle">
-        <corners android:radius="20dp" />
-        <solid android:color="@color/blue" />
+        <corners android:radius="50dp" />
+        <solid android:color="#FFFFFF" />
         <padding
             android:bottom="@dimen/abc_button_padding_vertical_material"
             android:left="@dimen/abc_button_padding_horizontal_material"

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.KeyEvent
@@ -14,8 +15,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.myapplicatio.R
+import com.example.myapplicatio.*
 import com.example.myapplicatio.common.base.app.BaseFragment
+import com.example.myapplicatio.db.memo.MemoEntity
 import com.example.myapplicatio.db.reminder.ReminderEntity
 import com.example.myapplicatio.firebase.FireFragment
 import com.example.myapplicatio.firebase.SecondFragment
@@ -29,7 +31,6 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.main_container.*
 import uz.greenwhite.lib.mold.Mold
 import uz.greenwhite.lib.mold.MoldContentFragment
-import uz.greenwhite.lib.mold.behavior.BottomNavigationBehavior
 import uz.greenwhite.lib.view_setup.UI
 import uz.greenwhite.lib.view_setup.ViewSetup
 import java.util.*
@@ -45,6 +46,8 @@ class DashboardFragment : MoldContentFragment(), View.OnClickListener {
         }
     }
 
+    private var adapter: TabAdapter? = null
+    private val tabIcons = intArrayOf(R.drawable.ic_calendar, R.drawable.ic_microphone, R.drawable.ic_call)
     private var doubleBackToExitPressedOnce: Long = 0
     private var mMonthText: Array<String>? = null
     private var mCurrentSelectYear: Int? = null
@@ -62,7 +65,7 @@ class DashboardFragment : MoldContentFragment(), View.OnClickListener {
         childFragmentManager
                 .beginTransaction()
                 .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
-                .replace(R.id.content, fragment, fragment.javaClass.getSimpleName())
+                .replace(R.id.content, fragment, fragment.javaClass.simpleName)
                 .commit()
     }
 
@@ -97,10 +100,38 @@ class DashboardFragment : MoldContentFragment(), View.OnClickListener {
         vs.imageView(R.id.iv_icon).setImageDrawable(resources.getDrawable(R.drawable.ic_note))
         vs.textView(R.id.tv_text).text = "my dialog"
         UI.bottomSheet().contentView(vs.view)
+
+        adapter = TabAdapter(childFragmentManager, context)
+        adapter!!.addFragment(Tab1Fragment(), "Tab 1", tabIcons[0])
+        adapter!!.addFragment(Tab2Fragment(), "Tab 2", tabIcons[1])
+        adapter!!.addFragment(Tab3Fragment(), "Tab 3", tabIcons[2])
+        viewPager.adapter = adapter
+        tabLayout.setupWithViewPager(viewPager)
+        highLightCurrentTab(0)
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+            override fun onPageSelected(position: Int) {
+                highLightCurrentTab(position)
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {}
+        })
 //        val fragmentAdapter = MyPagerAdapter(childFragmentManager)
 //        viewpager_main.adapter = fragmentAdapter
 //
 //        tb_layout.setupWithViewPager(viewpager_main)
+    }
+
+    private fun highLightCurrentTab(position: Int) {
+        for (i in 0 until tabLayout!!.tabCount) {
+            val tab = tabLayout!!.getTabAt(i)!!
+            tab.customView = null
+            tab.customView = adapter!!.getTabView(i)
+        }
+        val tab = tabLayout!!.getTabAt(position)!!
+        tab.customView = null
+        tab.customView = adapter!!.getSelectedTabView(position)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -131,8 +162,10 @@ class DashboardFragment : MoldContentFragment(), View.OnClickListener {
             }
             R.id.fabSetting -> {
                 if (fabExpanded) {
+                    llBackground.setBackgroundColor(0x0000FF00)
                     closeFabMenu()
                 } else {
+                    llBackground.setBackgroundColor(resources.getColor(R.color.white))
                     openFabMenu()
                 }
             }
@@ -175,8 +208,14 @@ class DashboardFragment : MoldContentFragment(), View.OnClickListener {
     }
 
     fun addReminder() {
-        var adapter = RecyclerReminder(context!!, ArrayList<ReminderEntity>(), object : RecyclerReminder.ItemClickListener {
+        var rAdapter = RecyclerReminder(context!!, ArrayList<ReminderEntity>(), object : RecyclerReminder.ItemClickListener {
             override fun onItemClick(position: ReminderEntity) {
+                Toast.makeText(context, position.title, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        var nAdapter = RecyclerNote(context!!, ArrayList<MemoEntity>(), object : RecyclerNote.ItemClickListener {
+            override fun onItemClick(position: MemoEntity) {
                 Toast.makeText(context, position.title, Toast.LENGTH_SHORT).show()
             }
         })
@@ -201,7 +240,9 @@ class DashboardFragment : MoldContentFragment(), View.OnClickListener {
         }
 
         rc_reminder.layoutManager = LinearLayoutManager(context)
-        rc_reminder.adapter = adapter
+        rc_note.layoutManager = LinearLayoutManager(context)
+        rc_reminder.adapter = rAdapter
+        rc_note.adapter = nAdapter
     }
 
     fun closeFabMenu() {

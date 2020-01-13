@@ -15,13 +15,14 @@ class MemoEntity(var title: String,
                  var time_end: String,
                  var privacy: Boolean,
                  var times: Int,
-                 var loction: Long,
+                 var loction: Int,
                  var people: String,
                  var note: String,
-                 var images: List<ByteArray>,
-                 var color: ByteArray) {
+//                 var images: List<ByteArray>,
+                 var image: ByteArray,
+                 var color: Int) {
 
     @PrimaryKey(autoGenerate = true)
-    public var id: Int = 0
+    var id: Int = 0
 
 }

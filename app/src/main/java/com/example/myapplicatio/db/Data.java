@@ -6,7 +6,6 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
-import com.example.myapplicatio.db.memo.ConvertImages;
 import com.example.myapplicatio.db.memo.MemoDao;
 import com.example.myapplicatio.db.memo.MemoEntity;
 import com.example.myapplicatio.db.reminder.ReminderDao;
@@ -16,8 +15,8 @@ import com.example.myapplicatio.db.task.TasksEntiry;
 import com.example.myapplicatio.db.user.UserDao;
 import com.example.myapplicatio.db.user.UserEntity;
 
-@Database(entities = {TasksEntiry.class, UserEntity.class, ReminderEntity.class, MemoEntity.class}, version = 5)
-@TypeConverters(ConvertImages.class)
+@Database(entities = {TasksEntiry.class, UserEntity.class, ReminderEntity.class, MemoEntity.class}, version = 6)
+//@TypeConverters(ConvertImages.class)
 public abstract class Data extends RoomDatabase {
 
     public abstract TasksDao wordDao();

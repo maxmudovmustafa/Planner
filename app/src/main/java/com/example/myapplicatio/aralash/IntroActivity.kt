@@ -12,6 +12,8 @@ import com.example.myapplicatio.dashboard.SessionIndexFragment
 import com.example.myapplicatio.db.Data
 import com.example.myapplicatio.db.user.UserEntity
 import com.example.myapplicatio.db.user.UserModelView
+import com.example.myapplicatio.db.user.UserViewFactory
+import com.example.myapplicatio.z_detail.ECommers
 import kotlinx.android.synthetic.main.into_activity.*
 import uz.greenwhite.lib.mold.Mold
 import uz.greenwhite.lib.view_setup.DialogBuilder
@@ -66,7 +68,7 @@ class IntroActivity : AppCompatActivity() {
     }
 
     fun gotoActivity() {
-        var intent = Intent(this, MainActivity::class.java)
+        var intent = Intent(this, ECommers::class.java)
         startActivity(intent)
         finish()
     }

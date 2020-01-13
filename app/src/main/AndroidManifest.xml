@@ -67,9 +67,7 @@
         android:icon="@drawable/ic_calendar_r"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_calendar_r"
-
         android:theme="@style/IntroTheme">
-        <activity android:name=".aralash.MainActivity"></activity>
 
         <activity android:name=".aralash.SplashActivity">
             <intent-filter>
@@ -78,15 +76,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".z_detail.ECommers"/>
+        <activity android:name=".memos.LocationMap"/>
+        <activity android:name=".z_camera.Chooose" />
+        <activity android:name=".z_camera.IPCamera" />
         <activity android:name=".aralash.IntroActivity" />
+        <activity android:name=".z_camera.VideoPlayBack" />
+        <activity android:name=".z_camera.VideoStream" />
+
+        <receiver
+            android:name=".z_camera.BroadCastRecieve"
+            android:permission=".android.permission.SEND_SMS">
+            <intent-filter>
+            <action
+                android:name=" com.example.myapplicatio.z_camera.BroadCastSend"/>
+            </intent-filter>
+            </receiver>
 
         <activity
             android:name="uz.greenwhite.lib.mold.MoldContentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AnorAppTheme" />
 
-        <activity android:name=".firebase.FSplash" >
-        </activity>
+        <activity android:name=".firebase.FSplash"></activity>
 
         <activity
             android:name=".dashboard.NavigationFragment"
@@ -104,6 +117,10 @@
 
         <service android:name="uz.greenwhite.lib.job.internal.JobService" />
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAfKFkzrf_P2YNWue5rX-nI24qWXSkUPZk"
+            />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorPrimary" />

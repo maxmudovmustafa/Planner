@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
         android:orientation="vertical"
-        android:background="@drawable/abc_list_selector_background_transition_holo_light"
+        android:background="@drawable/background_rectange"
         android:paddingTop="32dp">
 
 
@@ -22,8 +22,8 @@
 
             <com.example.myapplicatio.util.MyImageView
                 android:id="@+id/iv_avatar"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_gravity="center|left"
                 android:layout_margin="16dp"
                 android:gravity="center"
@@ -38,15 +38,17 @@
 
             <com.example.myapplicatio.util.MyImageView
                 android:id="@+id/miv_module_setting"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_gravity="center|right"
-                android:layout_marginRight="16dp"
+                android:layout_marginRight="25dp"
                 android:src="@drawable/ic_edit"
                 app:my_icon_color="@color/light_silver" />
         </LinearLayout>
 
+
         <LinearLayout
+            android:id="@+id/LLCallInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -99,6 +101,7 @@
                     android:textOff=""
                     android:textOn=""/>
             </LinearLayout>
+
         </LinearLayout>
         <View
             android:layout_width="match_parent"
@@ -138,5 +141,7 @@
                 android:hint="Detail"
                 style="@style/GWS.EditText"/>
         </LinearLayout>
+
+
     </LinearLayout>
 </FrameLayout>

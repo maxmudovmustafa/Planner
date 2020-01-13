@@ -13,7 +13,7 @@ class MemoModelView : AndroidViewModel {
         mRepo = MemoRepository(application)
     }
 
-    fun getAllPeopleInfo(): List<MemoEntity> ?{
+    fun getAllMemo(): List<MemoEntity> ?{
         if (mItems == null) {
             mItems = mRepo.getAllMemo()
         }

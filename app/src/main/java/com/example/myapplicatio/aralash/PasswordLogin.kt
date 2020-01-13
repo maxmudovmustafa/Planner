@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils
 import com.example.myapplicatio.R
 import com.example.myapplicatio.dashboard.SessionIndexFragment
 import com.example.myapplicatio.db.user.UserModelView
+import com.example.myapplicatio.db.user.UserViewFactory
 import com.example.myapplicatio.util.ToastUtils
 import kotlinx.android.synthetic.main.password_layout.*
 import uz.greenwhite.lib.view_setup.ViewSetup

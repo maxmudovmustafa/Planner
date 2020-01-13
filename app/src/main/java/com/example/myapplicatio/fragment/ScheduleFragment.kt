@@ -16,9 +16,10 @@ import android.widget.TextView
 import com.example.myapplicatio.R
 import com.example.myapplicatio.adapter.ScheduleAdapter
 import com.example.myapplicatio.aralash.App
-import com.example.myapplicatio.aralash.ReminderViewFactory
-import com.example.myapplicatio.aralash.SwipeToDeleteCallback
+import com.example.myapplicatio.db.reminder.ReminderViewFactory
+import com.example.myapplicatio.aralash.swipe.SwipeToDeleteCallback
 import com.example.myapplicatio.calendar.OnCalendarClickListener
+import com.example.myapplicatio.calendar.RecyclerNote
 import com.example.myapplicatio.calendar.RecyclerReminder
 import com.example.myapplicatio.calendar.schedule.ScheduleLayout
 import com.example.myapplicatio.calendar.schedule.ScheduleRecyclerView
@@ -26,6 +27,9 @@ import com.example.myapplicatio.common.base.app.BaseFragment
 import com.example.myapplicatio.common.bean.Schedule
 import com.example.myapplicatio.common.listener.OnTaskFinishedListener
 import com.example.myapplicatio.common.util.DeviceUtils
+import com.example.myapplicatio.db.memo.MemoEntity
+import com.example.myapplicatio.db.memo.MemoFactory
+import com.example.myapplicatio.db.memo.MemoModelView
 import com.example.myapplicatio.db.reminder.ReminderEntity
 import com.example.myapplicatio.db.reminder.ReminderModelView
 import com.example.myapplicatio.dialog.SelectDateDialog
@@ -62,26 +66,46 @@ class ScheduleFragment : BaseFragment(),
 
     override fun bindView(){
 
-        val factory = ReminderViewFactory(App.getApplicationContext(context!!))
-        val modelView = ViewModelProviders.of(this, factory).get(ReminderModelView::class.java)
-        var rv_list = searchViewById<RecyclerView>(R.id.rv_list)
-        val allReminder = modelView.getAllReminder()
-        rv_list.layoutManager = LinearLayoutManager(context)
-        val adapter = RecyclerReminder(context!!, ArrayList(allReminder!!), object : RecyclerReminder.ItemClickListener {
+        val rFactory = ReminderViewFactory(App.getApplicationContext(context!!))
+        val mFactory = MemoFactory(App.getApplicationContext(context!!))
+        val rModelView = ViewModelProviders.of(this, rFactory).get(ReminderModelView::class.java)
+        val mModelView = ViewModelProviders.of(this, mFactory).get(MemoModelView::class.java)
+        var rRvList = searchViewById<RecyclerView>(R.id.rv_list)
+        var mRvList = searchViewById<RecyclerView>(R.id.mRv_list)
+        val allReminder = rModelView.getAllReminder()
+        val allMemo = mModelView.getAllMemo()
+        rRvList.layoutManager = LinearLayoutManager(context)
+        mRvList.layoutManager = LinearLayoutManager(context)
+        val rAdapter = RecyclerReminder(context!!, ArrayList(allReminder!!), object : RecyclerReminder.ItemClickListener {
             override fun onItemClick(position: ReminderEntity) {
+                ToastUtils.showShortToast(context, position.title)
+            }
+        })
+
+        val mAdapter = RecyclerNote(context!!, ArrayList(allMemo!!), object : RecyclerNote.ItemClickListener {
+            override fun onItemClick(position: MemoEntity) {
                 ToastUtils.showShortToast(context, position.title)
             }
         })
 
         var swipe = object : SwipeToDeleteCallback(context!!) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                adapter.removeItem(viewHolder.adapterPosition)
+                rAdapter.removeItem(viewHolder.adapterPosition)
+            }
+        }
+
+        var mswipe = object : SwipeToDeleteCallback(context!!) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                mAdapter.removeItem(viewHolder.adapterPosition)
             }
         }
 
         var itemTouchhelper = ItemTouchHelper(swipe)
-        itemTouchhelper.attachToRecyclerView(rv_list)
-        rv_list.adapter = adapter
+        var mitemTouchhelper = ItemTouchHelper(mswipe)
+        itemTouchhelper.attachToRecyclerView(rRvList)
+        itemTouchhelper.attachToRecyclerView(mRvList)
+        rRvList.adapter = rAdapter
+        mRvList.adapter = mAdapter
 
         slSchedule = searchViewById<ScheduleLayout>(R.id.slSchedule)
         rvScheduleList = searchViewById<ScheduleRecyclerView>(R.id.rvScheduleList)
@@ -145,21 +169,6 @@ class ScheduleFragment : BaseFragment(),
         mScheduleAdapter = ScheduleAdapter(mActivity, this)
         rvScheduleList!!.adapter = mScheduleAdapter
 
-        //        var items = ArrayList<MyTextSample>()
-        //        items.add(MyTextSample("Mine", "Test1"))
-        //        items.add(MyTextSample("Mine", "Test2"))
-        //        items.add(MyTextSample("Mine", "Test3"))
-        //        items.add(MyTextSample("Mine", "Test4"))
-        //        items.add(MyTextSample("Mine", "Test5"))
-        //        items.add(MyTextSample("Mine", "Test6"))
-        //
-        //        var adapter = MyListAdapter(context!!, items, object : MyListAdapter.ItemClickListener {
-        //            override fun onItemClick(position: MyTextSample) {
-        //                Toast.makeText(context, position.detail, Toast.LENGTH_SHORT).show()
-        //            }
-        //        })
-//                list.layoutManager = LinearLayoutManager(context)
-//                list.adapter = adapter
     }
 
     private fun initBottomInputBar() {

@@ -4,47 +4,56 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@color/zxing_transparent"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_reminder"
+        android:orientation="horizontal">
+
+        <ToggleButton
+            android:id="@+id/tg_check"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_check_box_empty"
+            android:textOff=""
+            android:textOn="" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_reminder"
-            android:orientation="horizontal">
+            android:layout_marginLeft="@dimen/space_10dp"
+            android:layout_marginRight="@dimen/space_20dp"
+            android:orientation="vertical">
 
-            <ToggleButton
-                android:id="@+id/tg_check"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:background="@drawable/ic_check_box_empty"
-                android:textOff=""
-                android:textOn="" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
             <TextView
                 android:id="@+id/tv_name_reminder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="center"
                 android:paddingLeft="20dp"
-                android:textColor="@color/white"
-                android:text="dsadsaad ass ad"
-                android:textSize="18sp" />
+                android:text="Name Of Reminder"
+                android:textColor="@color/dark_silver"
+                android:textSize="19sp" />
 
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="15sp"
-                    android:textColor="@color/white"
-                    android:text="@string/date" />
-            </LinearLayout>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/date"
+                android:textColor="@color/dark_silver"
+                android:textSize="15sp" />
+        </LinearLayout>
 
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/space_10dp"
+        android:layout_marginRight="@dimen/space_10dp"
+        android:background="@color/light_silver"/>
 </LinearLayout>

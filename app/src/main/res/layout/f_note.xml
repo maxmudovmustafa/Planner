@@ -197,9 +197,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:visibility="gone"
                 android:background="@drawable/gwslib_edittext_background"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:id="@+id/ll_notify"
@@ -289,13 +289,12 @@
                     android:layout_margin="10dp"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <ImageView
                         android:id="@+id/ll_image_color"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/color_schedule_blue"
-                        android:orientation="horizontal" />
+                        android:src="@color/color_schedule_blue"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -337,7 +336,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </android.support.v4.widget.NestedScrollView>
 
                 <LinearLayout

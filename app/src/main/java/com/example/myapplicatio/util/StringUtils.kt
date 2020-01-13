@@ -17,16 +17,21 @@ object StringUtils {
         return sb.toString()
     }
 
-    fun String(value: TextView): String {
+    fun String(value: TextView?): String {
+        if (value == null) return "1"
+        return value.text.toString()    }
+
+    fun String(value: EditText?): String {
+        if (value == null) return "1"
         return value.text.toString()
     }
 
-    fun String(value: EditText): String {
-        return value.text.toString()
+    fun byteArrays(byteArray: ByteArray?): ByteArray {
+        if (byteArray == null) return byteArrayOf(0x2E, 0x38)
+        return byteArray
     }
 
-
-    fun format(value: Int){
+    fun format(value: Int) {
 //        return String.format("%02d", hourOfDay) + ":" +
 //                String.format("%02d", minute) + mode
     }

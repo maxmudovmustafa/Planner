@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.myapplicatio.aralash.MyTextSample;
+import com.example.myapplicatio.z_detail.MyTextSample;
 import com.example.myapplicatio.R;
 import com.example.myapplicatio.util.ToastUtils;
 

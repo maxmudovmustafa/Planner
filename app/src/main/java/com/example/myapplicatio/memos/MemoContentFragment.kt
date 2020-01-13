@@ -8,7 +8,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.location.Location
 import android.net.Uri
@@ -40,8 +40,6 @@ import kotlinx.android.synthetic.main.f_note.*
 import kotlinx.android.synthetic.main.time_picker_legacy_material.view.*
 import uz.greenwhite.lib.Tuple2
 import uz.greenwhite.lib.collection.MyArray
-import uz.greenwhite.lib.location.LocationHelper
-import uz.greenwhite.lib.location.LocationResult
 import uz.greenwhite.lib.mold.Mold
 import uz.greenwhite.lib.mold.MoldContentFragment
 import uz.greenwhite.lib.view_setup.PopupBuilder
@@ -49,7 +47,7 @@ import uz.greenwhite.lib.view_setup.UI
 import java.io.ByteArrayOutputStream
 import java.io.File
 
-class MemoContentFragment : MoldContentFragment() {
+class MemoContentFragment : MoldContentFragment(), View.OnClickListener {
     companion object {
         fun newInstance(): MoldContentFragment {
             var s = Bundle()
@@ -65,41 +63,45 @@ class MemoContentFragment : MoldContentFragment() {
         return inflater.inflate(R.layout.f_note, container, false)
     }
 
-    //    private var viewModel: MemoModelView? = null
     private var doubleBackToExitPressedOnce: Long = 0
     private var mFusedLocationClient: FusedLocationProviderClient? = null
 
-    protected var mLastLocation: Location? = null
+    private var mLastLocation: Location? = null
 
     private var mLatitudeLabel: String? = null
     private var mLongitudeLabel: String? = null
     private var mLatitudeText: TextView? = null
     private var mLongitudeText: TextView? = null
     private var adapter: ImagesList? = null
-
+    private var viewModel: MemoModelView? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val calendar = Calendar.getInstance()
-        var a = ArrayList<Tuple2>()
-        a.add(Tuple2("Does not repeat", 1))
-        a.add(Tuple2("Repeat every day", 2))
-        a.add(Tuple2("Repeat every week", 3))
-        a.add(Tuple2("Repeat every month", 4))
-        a.add(Tuple2("Custom", 5))
-
-        tv_more_options.setOnClickListener {
-            UI.popup().option(MyArray.from(a), object : PopupBuilder.CommandFacade<Tuple2> {
-                override fun apply(value: Tuple2?) {
-                    tv_more_options.text = value!!.first as String
-                }
-
-                override fun getName(value: Tuple2?): CharSequence {
-                    return value!!.first as String
-                }
-
-            }).show(tv_more_options)
+        val fMemo = MemoFactory(App.getApplicationContext(context!!))
+        viewModel = ViewModelProviders.of(this, fMemo).get(MemoModelView::class.java)
+        var memeos = viewModel!!.getAllMemo()
+        if (memeos != null && memeos.isNotEmpty()) {
+            showMessage(memeos[0].title)
         }
+
+        tv_more_options.setOnClickListener(this)
+        tv_time_start.setOnClickListener(this)
+        tv_time_end.setOnClickListener(this)
+
+        ll_all_day.setOnClickListener(this)
+        ll_location.setOnClickListener(this)
+        ll_add_member.setOnClickListener(this)
+        ll_privacy.setOnClickListener(this)
+        ll_attach_file.setOnClickListener(this)
+        ll_color.setOnClickListener(this)
+
+        btn_save.setOnClickListener(this)
+
+        UI.makeDatePicker(tv_date_start)
+        UI.makeDatePicker(et_date_end)
+        tv_time_start.text = CalendarUtil.HOURS()
+        tv_time_end.text = CalendarUtil.HOURS()
+
         mLatitudeLabel = "latitude_label"
         mLongitudeLabel = "longitude_label"
         mLatitudeText = latitude_text
@@ -107,100 +109,102 @@ class MemoContentFragment : MoldContentFragment() {
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context!!)
 
-//        val factory = MemoViewFactory(App.getApplicationContext(view.context))
-//        viewModel = ViewModelProviders.of(this, factory).get(MemoModelView::class.java)
-
         sw_all_day.setOnCheckedChangeListener { _, isChecked ->
             ViewUtil.visible(isChecked, ll_time_end)
             ViewUtil.visible(isChecked, tv_time_start)
         }
-        ll_all_day.setOnClickListener {
-            ViewUtil.visible(sw_all_day.isChecked, ll_time_end)
-            ViewUtil.visible(sw_all_day.isChecked, tv_time_start)
-        }
-
-        tv_time_start.setOnClickListener {
-            setHour(tv_time_start)
-        }
-
-        tv_time_end.setOnClickListener {
-            setHour(tv_time_end)
-        }
-
-        ll_location.setOnClickListener {
-
-
-            var mapIntent = Intent(Intent.ACTION_VIEW, Uri.parse("google.streetview:cbll=46.414382,10.013988"))
-
-            mapIntent.setPackage("com.google.android.apps.maps")
-            startActivityForResult(mapIntent, 34)
-//            var builder = PlacePicker.IntentBuilder()
-//            startActivityForResult(builder.build(this), 3)
-            getLastLocation()
-            LocationHelper.getOneLocation(context, object : LocationResult() {
-                override fun onLocationChanged(location: Location?) {
-                    ToastUtils.showShortToast(context, "" + location?.latitude)
-                }
-
-            })
-        }
-
-        ll_add_member.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = ContactsContract.Contacts.CONTENT_TYPE
-            startActivityForResult(intent, 3)
-        }
-
-        UI.makeDatePicker(tv_date_start)
-        UI.makeDatePicker(et_date_end)
-        tv_time_start.text = CalendarUtil.HOURS()
-        tv_time_end.text = CalendarUtil.HOURS()
-
-        ll_privacy.setOnClickListener {
-
-        }
-
-        ll_attach_file.setOnClickListener {
-            openGallery()
-        }
-
-
-        ll_color.setOnClickListener {
-
-            DialogColor(object : DialogColor.ColorPick {
-                override fun getColor(color: Drawable) {
-                    ll_image_color.background = color
-                }
-
-            }).show(childFragmentManager, "color")
-        }
-        val factory2 = MemoFactory(App.getApplicationContext(context!!))
-        var viewModel2 = ViewModelProviders.of(this, factory2).get(MemoModelView::class.java)
-        btn_save.setOnClickListener {
-            ToastUtils.showShortToast(context, "DOne")
-            if (!TextUtils.isEmpty(StringUtils.String(et_title))) {
-
-                var bitmap = (ll_image_color.background as BitmapDrawable).getBitmap()
-                var stream = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-                var bitmapdata = stream.toByteArray()
-
-                viewModel2.mRepo.insert(MemoEntity(StringUtils.String(et_title),
-                        StringUtils.String(tv_date_start),
-                        StringUtils.String(tv_time_start),
-                        StringUtils.String(et_date_end),
-                        StringUtils.String(tv_time_end),
-                        true,
-                        4,
-                        456,
-                        "people",
-                        StringUtils.String(note),
-                        adapter!!.getItems(),
-                        bitmapdata))
-            }
-        }
 
         rv_images.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    override fun onClick(view: View?) {
+
+        when (view!!.id) {
+            R.id.tv_more_options -> {
+                UI.popup().option(MyArray.from(optionPop()), object : PopupBuilder.CommandFacade<Tuple2> {
+                    override fun apply(value: Tuple2?) {
+                        tv_more_options.text = value!!.first as String
+                    }
+
+                    override fun getName(value: Tuple2?): CharSequence {
+                        return value!!.first as String
+                    }
+
+                }).show(tv_more_options)
+            }
+            R.id.ll_all_day -> {
+                ViewUtil.visible(sw_all_day.isChecked, ll_time_end)
+                ViewUtil.visible(sw_all_day.isChecked, tv_time_start)
+            }
+
+            R.id.tv_time_start -> {
+                setHour(tv_time_start)
+            }
+            R.id.tv_time_end -> {
+                setHour(tv_time_end)
+            }
+            R.id.ll_location -> {
+
+                var intent = Intent(context, LocationMap::class.java)
+                startActivity(intent)
+            }
+
+            R.id.ll_add_member -> {
+//                val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
+                val intent = Intent(Intent.ACTION_PICK)
+                intent.type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
+                if(intent.resolveActivity(context?.packageManager)!=null)
+                startActivityForResult(intent, 3)
+            }
+
+            R.id.ll_privacy -> {
+
+            }
+
+            R.id.ll_attach_file -> {
+                openGallery()
+            }
+
+            R.id.ll_color -> {
+                DialogColor(object : DialogColor.ColorPick {
+                    override fun getColor(color: Drawable) {
+                        ll_image_color.setImageDrawable(color)
+                    }
+
+                }).show(childFragmentManager, "color")
+
+            }
+
+            R.id.btn_save -> {
+                if (!TextUtils.isEmpty(StringUtils.String(et_title))) {
+
+                    ll_image_color.setBackgroundColor(resources.getColor(R.color.black))
+                    var bitmap = ll_image_color.background as ColorDrawable
+                    ll_image_color.setBackgroundColor(resources.getColor(R.color.white))
+
+                    var items = if (adapter == null || adapter?.getItems() == null) {
+                        ArrayList<ByteArray>()
+                    } else adapter?.getItems()
+
+                    viewModel!!.insertPeopel(MemoEntity(
+                            StringUtils.String(et_title),
+                            StringUtils.String(tv_date_start),
+                            StringUtils.String(tv_time_start),
+                            StringUtils.String(et_date_end),
+                            StringUtils.String(tv_time_end),
+                            true,
+                            4,
+                            456,
+                            "people",
+                            "people",
+                            StringUtils.byteArrays(sha),
+//                        StringUtils.String(note),
+//                        items!!,
+                            bitmap.color))
+                    showMessage("Inserted all")
+                }
+            }
+        }
     }
 
     private fun openGallery() {
@@ -241,7 +245,7 @@ class MemoContentFragment : MoldContentFragment() {
         if (doubleBackToExitPressedOnce + 2000 > System.currentTimeMillis()) {
             super.onBackPressed()
             return false
-        } else ToastUtils.showLongToast(context, "Press once again to exit!")
+        } else showMessage("Press once again to exit!")
         doubleBackToExitPressedOnce = System.currentTimeMillis()
         return true
     }
@@ -269,7 +273,7 @@ class MemoContentFragment : MoldContentFragment() {
                                 (mLastLocation)!!.longitude
                     } else {
                         Log.w(TAG, "getLastLocation:exception", task.exception)
-                        showMessage("no_location_detected")
+                        showMessage("Last location")
                     }
                 }
     }
@@ -312,40 +316,43 @@ class MemoContentFragment : MoldContentFragment() {
         }
     }
 
+    private var sha: ByteArray? = null
     private var progress: ProgressDialog? = null
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
+            var uri = data?.data
             progress = ProgressDialog.show(context, "Updating", "Please wait")
             if (requestCode == 34) {
 //                var place = IntentBuilder.PlacePicker.getPlace(data, this)
 //                var toastMsg = String.format("Place: %s", place.getName())
-                ToastUtils.showToast(context, "54555555555")
             } else if (requestCode == 1) {
-                var uri = data!!.data
                 try {
                     var bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, uri)
                     val bytes = ByteArrayOutputStream()
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-                    val sha = saveImage(bitmap)
+                    sha = saveImage(bitmap)
                     rv_images.visibility = View.VISIBLE
                     if (adapter == null) makeAdapter(bitmap)
                     else adapter!!.addItem(Tuple2(bitmap, "Worked"))
-                    sha
-                    ToastUtils.showShortToast(context, "Updateed ficture")
+                    showMessage("Updated picture")
                 } catch (ex: Exception) {
 
                 }
             } else if (requestCode == 3) {
-                var contactUri = data!!.data
+
                 val projection: Array<String> = arrayOf(ContactsContract.CommonDataKinds.Phone.NUMBER)
-                context?.contentResolver?.query(contactUri, projection, null, null, null).use { cursor ->
-                    // If the cursor returned is valid, get the phone number
-                    if (cursor?.moveToFirst()!!) {
-                        val numberIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
-                        val number = cursor.getString(numberIndex)
-                        ToastUtils.showToast(context!!, number)
-                    }
+                if (context != null || uri != null) {
+
+                    var cursor = activity?.contentResolver?.query(uri, projection, null, null, null)
+
+                        if (cursor!!.moveToFirst()) {
+                            val number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+//                            var name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+//                            showMessage("$number::$name")
+                            showMessage("$number")
+                            cursor.close()
+                        }
                 }
             }
             progress!!.dismiss()
@@ -374,7 +381,7 @@ class MemoContentFragment : MoldContentFragment() {
     fun makeAdapter(bitmap: Bitmap) {
         adapter = ImagesList(context!!, arrayListOf(Tuple2(bitmap, "worked")), object : ImagesList.ItemClickListener {
             override fun onItemClick(position: String) {
-                ToastUtils.showShortToast(context, position)
+                showMessage(position)
             }
         })
         rv_images.adapter = adapter
@@ -396,4 +403,14 @@ class MemoContentFragment : MoldContentFragment() {
                 CalendarUtil.MINUTE(),
                 DateFormat.is24HourFormat(context!!)).show()
     }
+
+    private fun optionPop(): ArrayList<Tuple2> {
+        return arrayListOf(Tuple2("Does not repeat", 1),
+                Tuple2("Does not repeat", 1),
+                Tuple2("Repeat every day", 2),
+                Tuple2("Repeat every week", 3),
+                Tuple2("Repeat every month", 4),
+                Tuple2("Custom", 5))
+    }
+
 }

@@ -25,7 +25,7 @@ import android.widget.LinearLayout
 import android.widget.ToggleButton
 import com.example.myapplicatio.R
 import com.example.myapplicatio.aralash.App
-import com.example.myapplicatio.aralash.UserViewFactory
+import com.example.myapplicatio.db.user.UserViewFactory
 import com.example.myapplicatio.calendar.DashboardFragment
 import com.example.myapplicatio.db.user.UserEntity
 import com.example.myapplicatio.db.user.UserModelView

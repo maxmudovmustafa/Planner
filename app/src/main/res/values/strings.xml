@@ -17,7 +17,12 @@
         <item name = "Number of cores: "></item>
         <item name = "Architecture: "></item>
     </array>
-
+    <string name="action_settings">Settings</string>
+    <string name="stop">Stop</string>
+    <string name="ok">OK</string>
+    <string name="ip">IP</string>
+    <string name="port">Port</string>
+    <string name="setting_title">Server Setting</string>
     <array name="cpu">
         <item name = "Cpu:"></item>
     </array>
